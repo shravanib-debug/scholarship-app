@@ -14,6 +14,63 @@
 
     <title>Smart Scholarship Finder</title>
     <style>
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-pastel: #E8F4FD;
+            --secondary-pastel: #F0F8E8;
+            --accent-pastel: #FFF2E8;
+            --purple-pastel: #F3E8FF;
+            --pink-pastel: #FFE8F3;
+            --blue-main: #4A90E2;
+            --green-main: #7FB069;
+            --orange-main: #FF8C42;
+            --purple-main: #8E44AD;
+            --text-dark: #2C3E50;
+            --text-light: #6C757D;
+            --white: #FFFFFF;
+            --border-light: #E9ECEF;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--primary-pastel) 0%, var(--secondary-pastel) 100%);
+            min-height: 100vh;
+        }
+
+        /* Modern Pattern Background */
+        .pattern-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pattern-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(74, 144, 226, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(127, 176, 105, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 25%, rgba(255, 140, 66, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 25% 75%, rgba(142, 68, 173, 0.05) 0%, transparent 50%);
+            background-size: 200px 200px, 250px 250px, 300px 300px, 180px 180px;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
         /* General */
         body {
             margin: 0;
@@ -30,37 +87,36 @@
         button {
             font-family: "Inter", sans-serif;
         }
-
-        /* Navbar Styles */
+        /* Navigation */
         .navbar {
-            background: #ffffff;
-            padding: 0.6rem 0;
+            background: var(--white);
+            padding: 1rem 0;
             box-shadow: 0 2px 20px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
             z-index: 1000;
-            width: 100%;
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            color: #4f46e5; /* blue-main */
+            color: var(--blue-main);
+            text-decoration: none;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 1.5rem;
+            gap: 2rem;
             align-items: center;
         }
 
@@ -70,9 +126,9 @@
 
         .nav-link {
             text-decoration: none;
-            color: #2d3748; /* text-dark */
-            font-weight: 600;
-            padding: 0.4rem 0.8rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
             border-radius: 8px;
             transition: all 0.3s ease;
             display: flex;
@@ -81,61 +137,75 @@
         }
 
         .nav-link:hover {
-            background: #ede9fe; /* primary-pastel */
-            color: #4f46e5; /* blue-main */
-        }
-
-        .login-btn {
-            background: #4f46e5; /* blue-main */
-            color: #ffffff;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .login-btn:hover {
-            background: #5a67d8;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            transform: translateY(-2px);
+            background: var(--primary-pastel);
+            color: var(--blue-main);
         }
 
         .dropdown {
             position: absolute;
-            top: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ffffff;
+            top: 100%;
+            left: 0;
+            background: var(--white);
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            padding: 0.5rem;
-            min-width: 220px;
+            padding: 1rem;
+            min-width: 200px;
             opacity: 0;
             visibility: hidden;
+            transform: translateY(-10px);
             transition: all 0.3s ease;
         }
 
         .nav-item:hover .dropdown {
             opacity: 1;
             visibility: visible;
-            top: 100%;
+            transform: translateY(0);
         }
 
         .dropdown-item {
             display: block;
             padding: 0.75rem 1rem;
-            color: #2d3748;
-            font-weight: 500;
+            color: var(--text-dark);
+            text-decoration: none;
             border-radius: 8px;
             transition: all 0.3s ease;
         }
 
         .dropdown-item:hover {
-            background: #fef3c7; /* accent-pastel */
-            color: #f97316; /* orange-main */
+            background: var(--accent-pastel);
+            color: var(--orange-main);
         }
 
+        .login-btn {
+            background: linear-gradient(135deg, var(--blue-main) 0%, var(--purple-main) 100%);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        /* Scholarship Grid */
+
+        
         /* Scholarship Grid */
         #scholarshipList {
             display: grid;
@@ -236,31 +306,60 @@
     </style>
 </head>
 <body>
-
-    <!-- Navbar -->
+<!-- Navigation -->
     <nav class="navbar">
-        <div class="nav-container">
-            <a href="index1.html" class="logo">
-                <i class="fas fa-graduation-cap"></i> EduPath
-            </a>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index1.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="scholarships.html" class="nav-link"><i class="fas fa-search"></i> Scholarships</a>
-                </li>
-                <li class="nav-item">
-                    <a href="counselor.html" class="nav-link"><i class="fas fa-user-friends"></i> Counselors</a>
-                </li>
-                <li class="nav-item">
-                    <a href="government.html" class="nav-link"><i class="fas fa-university"></i> Government</a>
-                </li>
-            </ul>
-            <button class="login-btn" onclick="location.href='login.html'">Login</button>
-        </div>
-    </nav>
-
+            <div class="nav-container">
+                <a href="#" class="logo" onclick="showPage('home')">
+                    <i class="fas fa-graduation-cap"></i> EduPath
+                </a>
+               
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-university"></i> College Search
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                         <div class="dropdown">
+                            <a href="#" class="dropdown-item">Search all Colleges</a>
+                            <a href="#" class="dropdown-item">By Location</a>
+                            <a href="#" class="dropdown-item">By Academics</a>
+                            <a href="#" class="dropdown-item">By Campus Resources</a>
+                            <a href="#" class="dropdown-item">By Admission Criteria</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="counselor.html" class="nav-link">
+                            <i class="fas fa-user-friends"></i> Counselors
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-envelope"></i> Contact
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-award"></i> Scholarships
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="dropdown">
+                            <a href="government.html" class="dropdown-item">Government Aided</a>
+                            <a href="merit.html" class="dropdown-item">Merit Based</a>
+                            <a href="demo1.html" class="dropdown-item">By Demographic</a>
+                        </div>
+                    </li>
+                </ul>
+               
+               
+                <a href="index.html" class="login-btn">
+                <i class="fas fa-user"></i> Log In
+                </a>
+               
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
     <!-- Scholarship Section -->
     <div class="container">
         <div class="section scholarship-section" id="scholarshipSection">
@@ -273,8 +372,11 @@
 
     <script>
         // Sample user profile & bookmarks
-        const userProfile = { caste: 'general', gpa: 70 };
-        const bookmarkedScholarships = [];
+        const userProfile = {
+        caste: ['general', 'obc'],
+         gpa: 70
+        };
+    const bookmarkedScholarships = [];
 
         // Sample Scholarship Data
         const scholarships = {

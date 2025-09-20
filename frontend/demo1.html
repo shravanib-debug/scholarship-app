@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <title>Smart Scholarship Finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-pastel: #E8F4FD;
+            --secondary-pastel: #F0F8E8;
+            --accent-pastel: #FFF2E8;
+            --purple-pastel: #F3E8FF;
+            --pink-pastel: #FFE8F3;
+            --blue-main: #4A90E2;
+            --green-main: #7FB069;
+            --orange-main: #FF8C42;
+            --purple-main: #8E44AD;
+            --text-dark: #2C3E50;
+            --text-light: #6C757D;
+            --white: #FFFFFF;
+            --border-light: #E9ECEF;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--primary-pastel) 0%, var(--secondary-pastel) 100%);
+            min-height: 100vh;
+        }
+
+        /* Modern Pattern Background */
+        .pattern-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pattern-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(74, 144, 226, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(127, 176, 105, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 25%, rgba(255, 140, 66, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 25% 75%, rgba(142, 68, 173, 0.05) 0%, transparent 50%);
+            background-size: 200px 200px, 250px 250px, 300px 300px, 180px 180px;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+        /* General */
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            background-color: #f9fafb;
+            color: #2d3748;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: "Inter", sans-serif;
+        }
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--blue-main);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: var(--primary-pastel);
+            color: var(--blue-main);
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 1rem;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: var(--accent-pastel);
+            color: var(--orange-main);
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--blue-main) 0%, var(--purple-main) 100%);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        /* Scholarship Grid */
+        #scholarshipList {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .scholarship-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scholarship-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .scholarship-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .scholarship-content {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            gap: 8px;
+        }
+
+        .scholarship-title {
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .scholarship-details {
+            color: #718096;
+            font-size: 0.9rem;
+            flex-grow: 1; 
+        }
+
+        .scholarship-amount {
+            color: #38a169;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .scholarship-deadline {
+            font-size: 0.85rem;
+            color: #e53e3e;
+            font-weight: 600;
+        }
+
+        .scholarship-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .container {
+            max-width: 1024px; /* same as navbar */
+            margin: 0 auto;
+            padding: 0 20px;  /* some horizontal breathing room */
+        }
+
+
+        .apply-btn, .bookmark-btn {
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .apply-btn {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .apply-btn:hover {
+            background-color: #5a67d8;
+        }
+
+        .bookmark-btn.bookmarked {
+            background-color: #fbbf24;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">
+                <i class="fas fa-graduation-cap"></i> EduPath
+            </a>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-university"></i> College Search
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                     <div class="dropdown">
+                        <a href="#" class="dropdown-item">Search all Colleges</a>
+                        <a href="#" class="dropdown-item">By Location</a>
+                        <a href="#" class="dropdown-item">By Academics</a>
+                        <a href="#" class="dropdown-item">By Campus Resources</a>
+                        <a href="#" class="dropdown-item">By Admission Criteria</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="counselor.html" class="nav-link">
+                        <i class="fas fa-user-friends"></i> Counselors
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-award"></i> Scholarships
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="government.html" class="dropdown-item">Government Aided</a>
+                        <a href="merit.html" class="dropdown-item">Merit Based</a>
+                        <a href="demographic.html" class="dropdown-item">By Demographic</a>
+                    </div>
+                </li>
+            </ul>
+            
+            
+            <a href="index.html" class="login-btn">
+            <i class="fas fa-user"></i> Log In
+            </a>
+            
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    
+    <div class="container">
+        <div class="section scholarship-section" id="scholarshipSection">
+            <h2 style="margin-bottom: 25px; font-size: 1.8rem;">Scholarship Recommendations</h2>
+            <div id="scholarshipList">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        const scholarships = [
+            // Women-Based Scholarships
+            {
+                id: 1,
+                title: "Indira Gandhi Scholarship for Single Girl Child",
+                description: "A UGC scheme to promote higher education for single girl children. Awarded to the only girl in a family pursuing a postgraduate degree.",
+                amount: "₹36,200 per year",
+                deadline: "2025-10-31",
+                image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
+                link: "https://www.ugc.gov.in/"
+            },
+            {
+                id: 2,
+                title: "L'Oréal India For Young Women in Science Scholarship",
+                description: "For young women from financially disadvantaged backgrounds to pursue a degree in a STEM field.",
+                amount: "₹2.5 Lakh",
+                deadline: "2025-09-15",
+                image: "loreal.jpg",
+                
+            },
+            // Sports-Based Scholarships
+            {
+                id: 3,
+                title: "AAI Sports Scholarship Scheme",
+                description: "A scheme by the Airports Authority of India to provide financial assistance to promising young athletes.",
+                amount: "Varies",
+                deadline: "Varies",
+                image: "https://images.unsplash.com/photo-1508098682726-eedf34e622b1?q=80&w=600&auto=format&fit=crop",
+                link: "https://www.aai.aero/"
+            },
+            {
+                id: 4,
+                title: "ONGC Sports Scholarship Scheme",
+                description: "This scholarship supports students with proven talent in sports and requires them to have won national or international competitions.",
+                amount: "Varies",
+                deadline: "Varies",
+                image: "oncg.jpg",
+                
+                
+            },
+            {
+                id: 5,
+                title: "GoSports Foundation Scholarship",
+                description: "A private scholarship for promising athletes in various disciplines, offering support for training, coaching, and equipment.",
+                amount: "Varies",
+                deadline: "2025-11-30",
+                image: "gosports.jpg",
+               
+            }
+        ];
+
+        function renderScholarships() {
+            const scholarshipList = document.getElementById('scholarshipList');
+            scholarshipList.innerHTML = '';
+
+            scholarships.forEach(scholarship => {
+                const card = document.createElement('div');
+                card.className = 'scholarship-card';
+
+                card.innerHTML = `
+                    <img src="${scholarship.image}" alt="${scholarship.title}" class="scholarship-image" onclick="window.open('${scholarship.link}', '_blank')">
+                    <div class="scholarship-content">
+                        <h3 class="scholarship-title" onclick="window.open('${scholarship.link}', '_blank')">${scholarship.title}</h3>
+                        <p class="scholarship-details">${scholarship.description}</p>
+                        <p class="scholarship-amount">Amount: ${scholarship.amount}</p>
+                        <p class="scholarship-deadline">Deadline: ${scholarship.deadline}</p>
+                        <div class="scholarship-buttons">
+                            <button class="apply-btn" onclick="window.open('${scholarship.link}', '_blank')">Apply Now</button>
+                            <button class="bookmark-btn" onclick="toggleBookmark(this)">Bookmark</button>
+                        </div>
+                    </div>
+                `;
+
+                scholarshipList.appendChild(card);
+            });
+        }
+        function toggleBookmark(button) {
+            button.classList.toggle('bookmarked');
+            if (button.classList.contains('bookmarked')) {
+                button.textContent = 'Bookmarked';
+            } else {
+                button.textContent = 'Bookmark';
+            }
+        }
+
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', renderScholarships);
+
+    </script>
+</body>
+</html>
+```
