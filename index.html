@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <!-- Replace your existing login button with this -->
+    <title>Smart Scholarship Finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Optional: adds some space above the button */
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            align-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .dashboard-card {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dashboard-card h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .scholarship-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .scholarship-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .scholarship-rank {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .scholarship-title {
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .scholarship-details {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .scholarship-amount {
+            color: #38a169;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .bookmark-btn {
+            background: #fed7d7;
+            color: #e53e3e;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .bookmark-btn.bookmarked {
+            background: #c6f6d5;
+            color: #38a169;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+        }
+
+        .timeline-date {
+            background: #667eea;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 15px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 15px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .calendar-day.has-deadline {
+            background: #fed7d7;
+            color: #e53e3e;
+            font-weight: bold;
+        }
+
+        .profile-section {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px) scale(0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-window.active {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chatbot-messages {
+            padding: 20px;
+            height: 300px;
+            overflow-y: auto;
+            background: #f8fafc;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+
+        .message.bot {
+            background: #e2e8f0;
+            color: #2d3748;
+            align-self: flex-start;
+        }
+
+        .message.user {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 10px 15px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .chatbot-input button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+            }
+
+            .chatbot-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .chatbot-button {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Smart Scholarship Finder</h1>
+            <p>Find the perfect scholarships tailored just for you</p>
+        </div>
+        
+
+        <!-- Profile Creation Section -->
+        <div class="section profile-section" id="profileSection">
+            <h2 style="color: #2d3748; margin-bottom: 25px; font-size: 1.8rem;">Create Your Profile</h2>
+            <form id="profileForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" placeholder="City, State" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="income">Annual Family Income</label>
+                        <select id="income" required>
+                            <option value="">Select Income Range</option>
+                            <option value="0-100000">Below ₹1 Lakh</option>
+                            <option value="100000-300000">₹1-3 Lakhs</option>
+                            <option value="300000-600000">₹3-6 Lakhs</option>
+                            <option value="600000-1000000">₹6-10 Lakhs</option>
+                            <option value="1000000+">Above ₹10 Lakhs</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="caste">Category</label>
+                        <select id="caste" required>
+                            <option value="">Select Category</option>
+                            <option value="general">General</option>
+                            <option value="obc">OBC</option>
+                            <option value="sc">SC</option>
+                            <option value="st">ST</option>
+                            <option value="ews">EWS</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="gpa">Current GPA/Percentage</label>
+                        <input type="number" id="gpa" step="0.1" min="0" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="yearOfStudy">Year of Study</label>
+                        <select id="yearOfStudy" required>
+                            <option value="">Select Year</option>
+                            <option value="12th">12th Grade</option>
+                            <option value="1st">1st Year</option>
+                            <option value="2nd">2nd Year</option>
+                            <option value="3rd">3rd Year</option>
+                            <option value="4th">4th Year</option>
+                            <option value="postgrad">Post Graduate</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label for="achievements">Achievements & Extracurriculars</label>
+                    <textarea id="achievements" rows="4" placeholder="List your achievements, competitions, sports, volunteer work, etc."></textarea>
+                </div>
+                <div class="btn-container">
+                        <button type="submit" class="btn">Create Profile & Find Scholarships</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div class="dashboard" id="dashboard">
+            <div class="dashboard-grid">
+                <!-- Personalized Scholarships -->
+                <div class="dashboard-card" style="grid-column: span 2;">
+                    <h3>📚 Recommended Scholarships</h3>
+                    <div id="scholarshipList"></div>
+                </div>
+
+                <!-- Saved Bookmarks -->
+                <div class="dashboard-card">
+                    <h3>🔖 Saved Scholarships</h3>
+                    <div id="bookmarksList">
+                        <p style="color: #718096; font-style: italic;">No bookmarks yet. Start saving scholarships!</p>
+                    </div>
+                </div>
+
+                <!-- Upcoming Deadlines -->
+                <div class="dashboard-card">
+                    <h3>⏰ Upcoming Deadlines</h3>
+                    <div id="deadlinesList">
+                        <div class="timeline-item">
+                            <div class="timeline-date">Dec 15</div>
+                            <div>Merit Scholarship Application</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Dec 30</div>
+                            <div>National Talent Search</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Jan 15</div>
+                            <div>State Government Scholarship</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calendar -->
+                <div class="dashboard-card">
+                    <h3>📅 December 2024</h3>
+                    <div class="calendar-grid">
+                        <div style="font-weight: bold; text-align: center;">Sun</div>
+                        <div style="font-weight: bold; text-align: center;">Mon</div>
+                        <div style="font-weight: bold; text-align: center;">Tue</div>
+                        <div style="font-weight: bold; text-align: center;">Wed</div>
+                        <div style="font-weight: bold; text-align: center;">Thu</div>
+                        <div style="font-weight: bold; text-align: center;">Fri</div>
+                        <div style="font-weight: bold; text-align: center;">Sat</div>
+                    </div>
+                    <div class="calendar-grid" id="calendarDays"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <button class="chatbot-button" id="chatbotToggle">🤖</button>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <span style="font-size: 20px;">🤖</span>
+                <div>
+                    <div style="font-weight: 600;">Robo Assistant</div>
+                    <div style="font-size: 0.8rem; opacity: 0.9;">Always here to help!</div>
+                </div>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot">Hi, I'm Robo! How can I help you find the perfect scholarship today? 🎓</div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Ask me about scholarships..." maxlength="200">
+                <button id="chatbotSend">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample scholarship data
+        const scholarships = {
+            general: [
+                {
+                    title: "Merit Excellence Scholarship",
+                    amount: "₹50,000",
+                    details: "For students with GPA > 85% | Open to all categories",
+                    deadline: "2024-12-15",
+                    rank: 1
+                },
+                {
+                    title: "National Talent Scholarship",
+                    amount: "₹75,000",
+                    details: "Based on competitive exam | All India level",
+                    deadline: "2024-12-30",
+                    rank: 2
+                },
+                {
+                    title: "Innovation Leaders Grant",
+                    amount: "₹1,00,000",
+                    details: "For students with innovative projects",
+                    deadline: "2025-01-20",
+                    rank: 3
+                }
+            ],
+            obc: [
+                {
+                    title: "OBC Merit Scholarship",
+                    amount: "₹40,000",
+                    details: "For OBC students with GPA > 75%",
+                    deadline: "2024-12-20",
+                    rank: 1
+                }
+            ],
+            sc: [
+                {
+                    title: "SC/ST Excellence Award",
+                    amount: "₹60,000",
+                    details: "Government scholarship for SC students",
+                    deadline: "2025-01-10",
+                    rank: 1
+                }
+            ],
+            st: [
+                {
+                    title: "ST Development Scholarship",
+                    amount: "₹60,000",
+                    details: "Tribal development fund scholarship",
+                    deadline: "2025-01-10",
+                    rank: 1
+                }
+            ],
+            ews: [
+                {
+                    title: "EWS Support Grant",
+                    amount: "₹45,000",
+                    details: "For economically weaker sections",
+                    deadline: "2025-01-15",
+                    rank: 1
+                }
+            ]
+        };
+
+        let userProfile = {};
+        let bookmarkedScholarships = [];
+
+        // Profile form submission
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            userProfile = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                gender: document.getElementById('gender').value,
+                location: document.getElementById('location').value,
+                income: document.getElementById('income').value,
+                caste: document.getElementById('caste').value,
+                gpa: parseFloat(document.getElementById('gpa').value),
+                yearOfStudy: document.getElementById('yearOfStudy').value,
+                achievements: document.getElementById('achievements').value
+            };
+
+            document.getElementById('profileSection').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            
+            generateScholarshipRecommendations();
+            generateCalendar();
+        });
+
+        function generateScholarshipRecommendations() {
+            const scholarshipList = document.getElementById('scholarshipList');
+            let recommendations = [...scholarships.general];
+            
+            // Add category-specific scholarships
+            if (scholarships[userProfile.caste]) {
+                recommendations = [...recommendations, ...scholarships[userProfile.caste]];
+            }
+            
+            // Sort by rank and filter by eligibility
+            recommendations = recommendations.filter(scholarship => {
+                if (scholarship.details.includes('GPA >')) {
+                    const requiredGPA = parseInt(scholarship.details.match(/GPA > (\d+)/)[1]);
+                    return userProfile.gpa >= requiredGPA;
+                }
+                return true;
+            }).sort((a, b) => a.rank - b.rank);
+
+            scholarshipList.innerHTML = recommendations.map(scholarship => `
+                <div class="scholarship-card">
+                    <div class="scholarship-rank">${scholarship.rank}</div>
+                    <div class="scholarship-title">${scholarship.title}</div>
+                    <div class="scholarship-details">${scholarship.details}</div>
+                    <div class="scholarship-amount">${scholarship.amount}</div>
+                    <button class="bookmark-btn" onclick="toggleBookmark('${scholarship.title}')">
+                        📌 Save
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function toggleBookmark(scholarshipTitle) {
+            const index = bookmarkedScholarships.indexOf(scholarshipTitle);
+            if (index > -1) {
+                bookmarkedScholarships.splice(index, 1);
+            } else {
+                bookmarkedScholarships.push(scholarshipTitle);
+            }
+            updateBookmarksList();
+        }
+
+        function updateBookmarksList() {
+            const bookmarksList = document.getElementById('bookmarksList');
+            if (bookmarkedScholarships.length === 0) {
+                bookmarksList.innerHTML = '<p style="color: #718096; font-style: italic;">No bookmarks yet. Start saving scholarships!</p>';
+            } else {
+                bookmarksList.innerHTML = bookmarkedScholarships.map(title => `
+                    <div style="background: rgba(255,255,255,0.7); padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                        <div style="font-weight: 600; color: #2d3748;">${title}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function generateCalendar() {
+            const calendarDays = document.getElementById('calendarDays');
+            const deadlineDates = [15, 30]; // December deadlines
+            
+            let calendarHTML = '';
+            for (let day = 1; day <= 31; day++) {
+                const hasDeadline = deadlineDates.includes(day);
+                calendarHTML += `
+                    <div class="calendar-day ${hasDeadline ? 'has-deadline' : ''}">${day}</div>
+                `;
+            }
+            calendarDays.innerHTML = calendarHTML;
+        }
+
+        // Chatbot functionality
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotSend = document.getElementById('chatbotSend');
+
+        let chatbotOpen = false;
+
+        chatbotToggle.addEventListener('click', function() {
+            chatbotOpen = !chatbotOpen;
+            chatbotWindow.classList.toggle('active', chatbotOpen);
+        });
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            messageDiv.textContent = message;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function getBotResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            
+            if (message.includes('scholarship') || message.includes('eligibility')) {
+                return "I can help you find scholarships! Based on your profile, I recommend checking the Merit Excellence Scholarship and category-specific options. Would you like more details about any specific scholarship?";
+            } else if (message.includes('deadline') || message.includes('when')) {
+                return "Here are the upcoming deadlines: Merit Scholarship (Dec 15), National Talent Search (Dec 30), and State Government Scholarship (Jan 15). Don't miss these dates! 📅";
+            } else if (message.includes('apply') || message.includes('how')) {
+                return "To apply for scholarships: 1) Check eligibility criteria 2) Gather required documents 3) Fill application forms 4) Submit before deadline. Need help with a specific application?";
+            } else if (message.includes('document') || message.includes('requirement')) {
+                return "Common documents needed: Academic transcripts, income certificate, caste certificate (if applicable), bank details, and passport photos. Always check specific requirements for each scholarship!";
+            } else if (message.includes('thank') || message.includes('thanks')) {
+                return "You're welcome! I'm always here to help you find the best scholarships. Good luck with your applications! 🎓✨";
+            } else {
+                return "I'm here to help with scholarship-related questions! You can ask me about eligibility, deadlines, application processes, or document requirements. What would you like to know?";
+            }
+        }
+
+        function sendMessage() {
+            const message = chatbotInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatbotInput.value = '';
+                
+                setTimeout(() => {
+                    const response = getBotResponse(message);
+                    addMessage(response);
+                }, 1000);
+            }
+        }
+
+        chatbotSend.addEventListener('click', sendMessage);
+        chatbotInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Close chatbot when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.chatbot-container') && chatbotOpen) {
+                chatbotOpen = false;
+                chatbotWindow.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

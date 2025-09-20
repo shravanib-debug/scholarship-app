@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counselor & Advisor Resource Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --blue-main: #667eea;
+            --purple-main: #764ba2;
+            --white: #ffffff;
+            --text-dark: #2d3748;
+            --primary-pastel: #e9eefd;
+            --accent-pastel: #fff0db;
+            --orange-main: #f08a5d;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0; /* Changed to 0 to fix navbar positioning */
+        }
+        .main-container {
+            max-width: 1000px;
+            margin: 40px auto; /* Added margin-top to place it under the navbar */
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .header-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        .header-section h1 {
+            font-size: 2.5rem;
+            color: #002d72;
+            font-weight: 700;
+        }
+        .header-section .image-container {
+            width: 45%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .header-section .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .header-section .content {
+            width: 50%;
+        }
+        .header-section p {
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+        .link-learn-more {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .link-learn-more:hover {
+            text-decoration: underline;
+        }
+        .navbar {
+            background: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--blue-main);
+            text-decoration: none;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-item {
+            position: relative;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-link:hover {
+            background: var(--primary-pastel);
+            color: var(--blue-main);
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 1rem;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .dropdown-item:hover {
+            background: var(--accent-pastel);
+            color: var(--orange-main);
+        }
+        .login-btn {
+            background: linear-gradient(135deg, var(--blue-main) 0%, var(--purple-main) 100%);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Updated href to point to home page -->
+            <a href="index1.html" class="logo" onclick="showPage('home')">
+                <i class="fas fa-graduation-cap"></i> EduPath
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-university"></i> College Search
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Search all Colleges</a>
+                        <a href="#" class="dropdown-item">By Location</a>
+                        <a href="#" class="dropdown-item">By Academics</a>
+                        <a href="#" class="dropdown-item">By Campus Resources</a>
+                        <a href="#" class="dropdown-item">By Admission Criteria</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="counselor.html" class="nav-link">
+                        <i class="fas fa-user-friends"></i> Counselors
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-award"></i> Scholarships
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Government Aided</a>
+                        <a href="#" class="dropdown-item">By Grade Level</a>
+                        <a href="#" class="dropdown-item">By Demographic</a>
+                    </div>
+                </li>
+            </ul>
+            <a href="index.html" class="login-btn">
+                <i class="fas fa-user"></i> Log In
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    <div class="main-container">
+        <div class="header-section">
+            <div class="content">
+                <h1>Counselor & Advisor Resource Hub</h1>
+                <p>Welcome to our Resource Hub, where we unite to support you in improving postsecondary outcomes for your students. We aim to make higher education more accessible by bridging information and opportunity gaps with free resources for counselors and advisors serving in high schools and community-based organizations.</p>
+                <p>This Hub includes some content from **EAB**, Applify's parent company. EAB partners with more than 2,600 institutions serving students from kindergarten through college to provide comprehensive thought leadership in areas such as access and equity, enrollment, and student success.</p>
+                <a href="#" class="link-learn-more">Learn more about our journey to Applify.</a>
+            </div>
+            <div class="image-container">
+                <img src="hello.jpg" alt="Counselors discussing">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
