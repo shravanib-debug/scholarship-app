@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <title>Smart Scholarship Finder</title>
+    <style>
+        /* General */
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            background-color: #f9fafb;
+            color: #2d3748;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: "Inter", sans-serif;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: #ffffff;
+            padding: 0.6rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #4f46e5; /* blue-main */
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #2d3748; /* text-dark */
+            font-weight: 600;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: #ede9fe; /* primary-pastel */
+            color: #4f46e5; /* blue-main */
+        }
+
+        .login-btn {
+            background: #4f46e5; /* blue-main */
+            color: #ffffff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #5a67d8;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            top: 100%;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #2d3748;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: #fef3c7; /* accent-pastel */
+            color: #f97316; /* orange-main */
+        }
+
+        /* Scholarship Grid */
+        #scholarshipList {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .scholarship-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scholarship-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .scholarship-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .scholarship-content {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            gap: 8px;
+        }
+
+        .scholarship-title {
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .scholarship-details {
+            color: #718096;
+            font-size: 0.9rem;
+            flex-grow: 1; 
+        }
+
+        .scholarship-amount {
+            color: #38a169;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .scholarship-deadline {
+            font-size: 0.85rem;
+            color: #e53e3e;
+            font-weight: 600;
+        }
+
+        .scholarship-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .container {
+            max-width: 1024px; /* same as navbar */
+            margin: 0 auto;
+            padding: 0 20px;   /* some horizontal breathing room */
+        }
+
+
+        .apply-btn, .bookmark-btn {
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .apply-btn {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .apply-btn:hover {
+            background-color: #5a67d8;
+        }
+
+        .bookmark-btn.bookmarked {
+            background-color: #fbbf24;
+            color: #ffffff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index1.html" class="logo">
+                <i class="fas fa-graduation-cap"></i> EduPath
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index1.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="scholarships.html" class="nav-link"><i class="fas fa-search"></i> Scholarships</a>
+                </li>
+                <li class="nav-item">
+                    <a href="counselor.html" class="nav-link"><i class="fas fa-user-friends"></i> Counselors</a>
+                </li>
+                <li class="nav-item">
+                    <a href="government.html" class="nav-link"><i class="fas fa-university"></i> Government</a>
+                </li>
+            </ul>
+            <button class="login-btn" onclick="location.href='login.html'">Login</button>
+        </div>
+    </nav>
+
+    <!-- Scholarship Section -->
+    <div class="container">
+        <div class="section scholarship-section" id="scholarshipSection">
+            <h2 style="margin-bottom: 25px; font-size: 1.8rem;">Scholarship Recommendations</h2>
+            <div id="scholarshipList">
+                <!-- Scholarship cards will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample user profile & bookmarks
+        const userProfile = { caste: 'general', gpa: 70 };
+        const bookmarkedScholarships = [];
+
+        // Sample Scholarship Data
+        const scholarships = {
+    general: [
+        {
+            title: "SBI Asha Scholarship 2025-26",
+            amount: "Up to ₹20 Lakh",
+            details: "For school and college students, including those pursuing studies abroad.",
+            deadline: "2025-10-31",
+            image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop",
+            link: "https://www.sbi.co.in/web/corporate-banking/sbi-foundation"
+        },
+        {
+            title: "National Overseas Scholarship (NOS)",
+            amount: "Varies",
+            details: "For SC/ST students for masters & PhD abroad. GPA > 60%",
+            deadline: "2025-03-31",
+            image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
+            link: "https://nosmsje.gov.in/"
+        },
+        {
+            title: "Indira Gandhi Scholarship for Single Girl Child",
+            amount: "6.25L",
+            details: "For single girl children pursuing postgraduate studies.",
+            deadline: "2025-03-31",
+            image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
+            link: "https://nosmsje.gov.in/"
+        },
+        {
+            title: "PM-USP Central Sector Scheme of Scholarship",
+            amount: "Varies",
+            details: "For meritorious students from low-income families to pursue higher education.",
+            deadline: "Varies",
+            image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop",
+            link: "https://scholarships.gov.in/"
+        },
+        {
+            title: "AICTE Saksham Scholarship Scheme",
+            amount: "₹50,000 per annum",
+            details: "For specially-abled students pursuing a technical diploma or degree.",
+            deadline: "Varies",
+            image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop",
+            link: "https://www.aicte-india.org/"
+        }
+    ],
+    obc: [
+        {
+            title: "PM-YASASVI Post-Matric Scholarship",
+            amount: "Up to ₹20,000 annually",
+            details: "For OBC, EBC, and DNT students pursuing post-matriculation studies.",
+            deadline: "September-October (Tentative)",
+            image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop",
+            link: "https://scholarships.gov.in/"
+        },
+        {
+            title: "Dr. Ambedkar Post Matric Scholarship for OBCs",
+            amount: "Varies by state",
+            details: "Financial support for OBC students pursuing higher education from Class 11 onwards.",
+            deadline: "Varies by state",
+            image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
+            link: "https://socialjustice.gov.in/schemes"
+        },
+        {
+            title: "National Overseas Scholarship (NOS)",
+            amount: "Varies by country",
+            details: "For OBC students (and others) to pursue master's and Ph.D. degrees abroad.",
+            deadline: "2025-10-24",
+            image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
+            link: "https://nosmsje.gov.in/"
+        },
+        {
+            title: "National Fellowship for OBC Students (NF-OBC)",
+            amount: "₹31,000 to ₹35,000 per month",
+            details: "A fellowship for OBC students pursuing M.Phil. and Ph.D. degrees in Indian universities.",
+            deadline: "October-December (Tentative)",
+            image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop",
+            link: "https://nbcfdc.gov.in/"
+        }
+    ]
+};
+                    
+
+        function generateScholarshipRecommendations() {
+            const scholarshipList = document.getElementById('scholarshipList');
+            const recommendations = [...(scholarships.general || [])];
+
+            scholarshipList.innerHTML = recommendations.map(scholarship => {
+                return `
+                <div class="scholarship-card">
+                    <img src="${scholarship.image}" alt="${scholarship.title}" class="scholarship-image" onclick="openLink('${scholarship.link}')">
+                    <div class="scholarship-content">
+                        <div class="scholarship-title" onclick="openLink('${scholarship.link}')">${scholarship.title}</div>
+                        <div class="scholarship-details">${scholarship.details}</div>
+                        <div>
+                            <div class="scholarship-amount">${scholarship.amount}</div>
+                            <div class="scholarship-deadline">Deadline: ${new Date(scholarship.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                        </div>
+                        <div class="scholarship-buttons">
+                            <button class="apply-btn" onclick="openLink('${scholarship.link}')">Apply Now</button>
+                            <button class="bookmark-btn" onclick="toggleBookmark(event, '${scholarship.title}')">📌 Save</button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function openLink(link) {
+            if(link) window.open(link, '_blank');
+        }
+
+        function toggleBookmark(event, title) {
+            const index = bookmarkedScholarships.indexOf(title);
+            if(index === -1) {
+                bookmarkedScholarships.push(title);
+                event.target.textContent = '✅ Saved';
+                event.target.classList.add('bookmarked');
+            } else {
+                bookmarkedScholarships.splice(index, 1);
+                event.target.textContent = '📌 Save';
+                event.target.classList.remove('bookmarked');
+            }
+        }
+
+        // Generate scholarships on page load
+        generateScholarshipRecommendations();
+    </script>
+
+</body>
+</html>
