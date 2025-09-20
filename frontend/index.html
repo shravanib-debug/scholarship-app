@@ -204,6 +204,17 @@
             margin-top: 10px;
             transition: all 0.3s ease;
         }
+        .bookmark1-btn {
+            background: #6b9ef6;
+            color: #4d53f4;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
 
         .bookmark-btn.bookmarked {
             background: #c6f6d5;
@@ -378,6 +389,7 @@
             cursor: pointer;
             font-size: 0.9rem;
         }
+        
 
         @media (max-width: 768px) {
             .container {
@@ -505,6 +517,7 @@
                 <div class="dashboard-card" style="grid-column: span 2;">
                     <h3>📚 Recommended Scholarships</h3>
                     <div id="scholarshipList"></div>
+                    
                 </div>
 
                 <!-- Saved Bookmarks -->
@@ -687,8 +700,12 @@
                     <div class="scholarship-title">${scholarship.title}</div>
                     <div class="scholarship-details">${scholarship.details}</div>
                     <div class="scholarship-amount">${scholarship.amount}</div>
-                    <button class="bookmark-btn" onclick="toggleBookmark('${scholarship.title}')">
-                        📌 Save
+                    <button class="bookmark1-btn" onclick="window.open('${scholarship.applyLink}', '_blank')">
+                    Apply Now
+                    </button>
+
+                    <button class="bookmark1-btn" onclick="toggleBookmark('${scholarship.title}')">
+                        Apply Now
                     </button>
                 </div>
             `).join('');
