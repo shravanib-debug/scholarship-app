@@ -6,8 +6,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <title>Smart Scholarship Finder</title>
     <style>
+        /* CSS Variables Definition */
+        :root {
+            --white: #ffffff;
+            --blue-main: #667eea;
+            --text-dark: #2d3748;
+            --primary-pastel: rgba(102, 126, 234, 0.1);
+            --accent-pastel: rgba(250, 177, 160, 0.2);
+            --orange-main: #dd6b20;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,9 +27,111 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f4f7fa; /* Lighter background for content area */
             min-height: 100vh;
             position: relative;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--blue-main);
+            text-decoration: none;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .nav-item {
+            position: relative;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-link:hover {
+            background: var(--primary-pastel);
+            color: var(--blue-main);
+        }
+        .login-btn {
+            background: var(--blue-main);
+            color: var(--white);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .login-btn:hover {
+            background: #5a67d8;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+        .dropdown {
+            position: absolute;
+            top: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            top: 100%;
+        }
+        .dropdown-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .dropdown-item:hover {
+            background: var(--accent-pastel);
+            color: var(--orange-main);
+        }
+        .mobile-menu-btn {
+            display: none; /* Hidden on desktop */
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
         .container {
@@ -31,6 +144,9 @@
             text-align: center;
             margin-bottom: 40px;
             color: white;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
         }
 
         .header h1 {
@@ -50,7 +166,6 @@
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
         }
 
         .form-grid {
@@ -139,7 +254,6 @@
             transform: translateY(-5px);
         }
 
-        /* Updated Scholarship Card Styles */
         #scholarshipList {
              display: grid;
              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -154,7 +268,6 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
-            cursor: pointer;
         }
 
         .scholarship-card:hover {
@@ -166,13 +279,14 @@
             width: 100%;
             height: 160px;
             object-fit: cover;
+            cursor: pointer;
         }
 
         .scholarship-content {
             padding: 16px;
             display: flex;
             flex-direction: column;
-            flex-grow: 1; /* Allows content to fill space */
+            flex-grow: 1;
             gap: 8px;
         }
 
@@ -180,12 +294,13 @@
             font-weight: 700;
             color: #2d3748;
             font-size: 1.1rem;
+            cursor: pointer;
         }
 
         .scholarship-details {
             color: #718096;
             font-size: 0.9rem;
-            flex-grow: 1; /* Pushes amount/deadline down */
+            flex-grow: 1; 
         }
 
         .scholarship-amount {
@@ -301,7 +416,6 @@
             right: 30px;
             z-index: 1000;
         }
-
         .chatbot-button {
             width: 60px;
             height: 60px;
@@ -317,12 +431,10 @@
             color: white;
             transition: all 0.3s ease;
         }
-
         .chatbot-button:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
         }
-
         .chatbot-window {
             position: absolute;
             bottom: 80px;
@@ -339,13 +451,11 @@
             display: flex;
             flex-direction: column;
         }
-
         .chatbot-window.active {
             transform: translateY(0) scale(1);
             opacity: 1;
             visibility: visible;
         }
-
         .chatbot-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -355,14 +465,12 @@
             align-items: center;
             gap: 10px;
         }
-
         .chatbot-messages {
             padding: 20px;
             flex-grow: 1;
             overflow-y: auto;
             background: #f8fafc;
         }
-
         .message {
             margin-bottom: 15px;
             padding: 12px 16px;
@@ -370,19 +478,16 @@
             max-width: 80%;
             line-height: 1.4;
         }
-
         .message.bot {
             background: #e2e8f0;
             color: #2d3748;
             align-self: flex-start;
         }
-
         .message.user {
             background: #667eea;
             color: white;
             margin-left: auto;
         }
-
         .chatbot-input {
             display: flex;
             padding: 15px;
@@ -390,7 +495,6 @@
             background: white;
             border-radius: 0 0 16px 16px;
         }
-
         .chatbot-input input {
             flex: 1;
             border: 2px solid #e2e8f0;
@@ -400,11 +504,9 @@
             font-size: 0.9rem;
             transition: border-color 0.3s ease;
         }
-        
         .chatbot-input input:focus {
             border-color: #667eea;
         }
-
         .chatbot-input button {
             background: #667eea;
             color: white;
@@ -415,34 +517,35 @@
             cursor: pointer;
             font-size: 0.9rem;
         }
-
+        
+        /* Responsive Styles */
         @media (max-width: 768px) {
+            .nav-menu, .login-btn {
+                display: none; /* Hide desktop menu on mobile */
+            }
+            .mobile-menu-btn {
+                display: block; /* Show hamburger icon */
+            }
             .container {
                 padding: 15px;
             }
-
             .header h1 {
                 font-size: 2rem;
             }
-
             .form-grid, #scholarshipList {
                 grid-template-columns: 1fr;
             }
-
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
-
             .chatbot-window {
                 width: calc(100vw - 40px);
                 height: 70vh;
             }
-
             .chatbot-container {
                 bottom: 20px;
                 right: 20px;
             }
-
             .chatbot-button {
                 width: 50px;
                 height: 50px;
@@ -452,12 +555,57 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🎓 Smart Scholarship Finder</h1>
-            <p>Find the perfect scholarships tailored just for you</p>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index1.html" class="logo">
+                <i class="fas fa-graduation-cap"></i> EduPath
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-award"></i> Scholarships
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="government.html" class="dropdown-item">Government Aided</a>
+                        <a href="#" class="dropdown-item">By Grade Level</a>
+                        <a href="#" class="dropdown-item">By Demographic</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-university"></i> College Search
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Search all Colleges</a>
+                        <a href="#" class="dropdown-item">By Location</a>
+                        <a href="#" class="dropdown-item">By Academics</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="counselor.html" class="nav-link">
+                        <i class="fas fa-user-friends"></i> Counselors
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                </li>
+            </ul>
+            <a href="#" class="login-btn">
+                <i class="fas fa-user"></i> Log In
+            </a>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
+    </nav>
 
+    <div class="container">
+        
+        
         <div class="section profile-section" id="profileSection">
             <h2 style="color: #2d3748; margin-bottom: 25px; font-size: 1.8rem;">Create Your Profile</h2>
             <form id="profileForm">
@@ -711,24 +859,24 @@
             scholarshipList.innerHTML = filteredRecommendations.map(scholarship => {
                 const isBookmarked = bookmarkedScholarships.some(b => b.title === scholarship.title);
                 return `
-                <div class="scholarship-card" onclick="openLink('${scholarship.link}')">
-                    <img src="${scholarship.image || 'https://via.placeholder.com/600x400'}" alt="${scholarship.title}" class="scholarship-image">
+                <div class="scholarship-card">
+                    <img src="${scholarship.image || 'https://via.placeholder.com/600x400'}" alt="${scholarship.title}" class="scholarship-image" onclick="openLink('${scholarship.link}')">
                     <div class="scholarship-content">
-                        <div class="scholarship-title">${scholarship.title}</div>
+                        <div class="scholarship-title" onclick="openLink('${scholarship.link}')">${scholarship.title}</div>
                         <div class="scholarship-details">${scholarship.details}</div>
                         <div>
                             <div class="scholarship-amount">${scholarship.amount}</div>
                             <div class="scholarship-deadline">Deadline: ${new Date(scholarship.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
                         </div>
                         <div class="scholarship-buttons">
-                            <button class="apply-btn">Apply Now</button>
+                            <button class="apply-btn" onclick="openLink('${scholarship.link}')">Apply Now</button>
                             <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark(event, '${scholarship.title}')">
                                 ${isBookmarked ? '✅ Saved' : '📌 Save'}
                             </button>
                         </div>
                     </div>
                 </div>
-            `}).join('');
+                `}).join('');
         }
         
         function openLink(link) {
@@ -839,7 +987,7 @@
         chatbotInput.addEventListener('keypress', (e) => e.key === 'Enter' && sendMessage());
 
         document.addEventListener('click', (e) => {
-            if (!chatbotToggle.contains(e.target) && !chatbotWindow.contains(e.target)) {
+            if (!chatbotToggle.contains(e.target) && !chatbotWindow.contains(e.target) && !e.target.closest('.chatbot-window')) {
                 chatbotWindow.classList.remove('active');
             }
         });
