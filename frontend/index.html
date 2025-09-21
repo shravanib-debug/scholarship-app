@@ -1,987 +1,6 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <title>Smart Scholarship Finder</title>
-    <style>
-        /* CSS Variables Definition */
-        :root {
-            --white: #ffffff;
-            --blue-main: #667eea;
-            --text-dark: #2d3748;
-            --primary-pastel: rgba(102, 126, 234, 0.1);
-            --accent-pastel: rgba(250, 177, 160, 0.2);
-            --orange-main: #dd6b20;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f4f7fa; /* Lighter background for content area */
-            min-height: 100vh;
-            position: relative;
-        }
-        
-        /* Navbar Styles */
-        .navbar {
-            background: var(--white);
-            padding: 1rem 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            width: 100%;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--blue-main);
-            text-decoration: none;
-        }
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-            align-items: center;
-        }
-        .nav-item {
-            position: relative;
-        }
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .nav-link:hover {
-            background: var(--primary-pastel);
-            color: var(--blue-main);
-        }
-        
-        .dropdown {
-            position: absolute;
-            top: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            padding: 0.5rem;
-            min-width: 220px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        .nav-item:hover .dropdown {
-            opacity: 1;
-            visibility: visible;
-            top: 100%;
-        }
-        .dropdown-item {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: var(--text-dark);
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        .dropdown-item:hover {
-            background: var(--accent-pastel);
-            color: var(--orange-main);
-        }
-        .mobile-menu-btn {
-            display: none; /* Hidden on desktop */
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-            padding: 50px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #4a5568;
-            font-size: 0.9rem;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: #f8fafc;
-        }
-
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            background: white;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            align-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .dashboard {
-            display: none;
-        }
-
-        .dashboard.active {
-            display: block;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .dashboard-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-        }
-
-        #scholarshipList {
-             display: grid;
-             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-             gap: 20px;
-        }
-
-        .scholarship-card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .scholarship-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .scholarship-image {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            cursor: pointer;
-        }
-
-        .scholarship-content {
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            gap: 8px;
-        }
-
-        .scholarship-title {
-            font-weight: 700;
-            color: #2d3748;
-            font-size: 1.1rem;
-            cursor: pointer;
-        }
-
-        .scholarship-details {
-            color: #718096;
-            font-size: 0.9rem;
-            flex-grow: 1; 
-        }
-
-        .scholarship-amount {
-            color: #38a169;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .scholarship-deadline {
-            font-size: 0.85rem;
-            color: #e53e3e;
-            font-weight: 600;
-        }
-        
-        .scholarship-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .apply-btn, .bookmark-btn {
-            border: none;
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .apply-btn {
-            background-color: #667eea;
-            color: white;
-        }
-
-        .apply-btn:hover {
-            background-color: #5a67d8;
-        }
-
-        .bookmark-btn {
-            background: #f0f2f5;
-            color: #4a5568;
-        }
-        
-        .bookmark-btn:hover {
-            background: #e2e8f0;
-        }
-
-        .bookmark-btn.bookmarked {
-            background: #c6f6d5;
-            color: #2f855a;
-        }
-
-        .timeline-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 12px;
-        }
-
-        .timeline-date {
-            background: #667eea;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-right: 15px;
-            min-width: 80px;
-            text-align: center;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            margin-top: 15px;
-        }
-
-        .calendar-day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.7);
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .calendar-day:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        .calendar-day.has-deadline {
-            background: #fed7d7;
-            color: #e53e3e;
-            font-weight: bold;
-        }
-
-        .profile-section {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-        }
-
-        /* Chatbot Styles */
-        .chatbot-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-        }
-        .chatbot-button {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            transition: all 0.3s ease;
-        }
-        .chatbot-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
-        }
-        .chatbot-window {
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            width: 350px;
-            height: 450px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            transform: translateY(20px) scale(0.8);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        .chatbot-window.active {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-            visibility: visible;
-        }
-        .chatbot-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 16px 16px 0 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .chatbot-messages {
-            padding: 20px;
-            flex-grow: 1;
-            overflow-y: auto;
-            background: #f8fafc;
-        }
-        .message {
-            margin-bottom: 15px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            max-width: 80%;
-            line-height: 1.4;
-        }
-        .message.bot {
-            background: #e2e8f0;
-            color: #2d3748;
-            align-self: flex-start;
-        }
-        .message.user {
-            background: #667eea;
-            color: white;
-            margin-left: auto;
-        }
-        .chatbot-input {
-            display: flex;
-            padding: 15px;
-            border-top: 1px solid #e2e8f0;
-            background: white;
-            border-radius: 0 0 16px 16px;
-        }
-        .chatbot-input input {
-            flex: 1;
-            border: 2px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 10px 15px;
-            outline: none;
-            font-size: 0.9rem;
-            transition: border-color 0.3s ease;
-        }
-        .chatbot-input input:focus {
-            border-color: #667eea;
-        }
-        .chatbot-input button {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 20px;
-            margin-left: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .nav-menu, .login-btn {
-                display: none; /* Hide desktop menu on mobile */
-            }
-            .mobile-menu-btn {
-                display: block; /* Show hamburger icon */
-            }
-            .container {
-                padding: 15px;
-            }
-            .header h1 {
-                font-size: 2rem;
-            }
-            .form-grid, #scholarshipList {
-                grid-template-columns: 1fr;
-            }
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            .chatbot-window {
-                width: calc(100vw - 40px);
-                height: 70vh;
-            }
-            .chatbot-container {
-                bottom: 20px;
-                right: 20px;
-            }
-            .chatbot-button {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index1.html" class="logo">
-                <i class="fas fa-graduation-cap"></i> EduPath
-            </a>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-award"></i> Scholarships
-                        <i class="fas fa-chevron-down fa-xs"></i>
-                    </a>
-                    <div class="dropdown">
-                        <a href="government.html" class="dropdown-item">Government Aided</a>
-                        <a href="#" class="dropdown-item">By Grade Level</a>
-                        <a href="#" class="dropdown-item">By Demographic</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-university"></i> College Search
-                        <i class="fas fa-chevron-down fa-xs"></i>
-                    </a>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-item">Search all Colleges</a>
-                        <a href="#" class="dropdown-item">By Location</a>
-                        <a href="#" class="dropdown-item">By Academics</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="counselor.html" class="nav-link">
-                        <i class="fas fa-user-friends"></i> Counselors
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-envelope"></i> Contact
-                    </a>
-                </li>
-            </ul>
-            
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
-
-    <div class="container">
-        
-        
-        <div class="section profile-section" id="profileSection">
-            <h2 style="color: #2d3748; margin-bottom: 25px; font-size: 1.8rem;">Create Your Profile</h2>
-            <form id="profileForm">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <select id="gender" required>
-                            <option value="">Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" placeholder="City, State" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="income">Annual Family Income</label>
-                        <select id="income" required>
-                            <option value="">Select Income Range</option>
-                            <option value="0-100000">Below ₹1 Lakh</option>
-                            <option value="100000-300000">₹1-3 Lakhs</option>
-                            <option value="300000-600000">₹3-6 Lakhs</option>
-                            <option value="600000-1000000">₹6-10 Lakhs</option>
-                            <option value="1000000+">Above ₹10 Lakhs</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="caste">Category</label>
-                        <select id="caste" required>
-                            <option value="">Select Category</option>
-                            <option value="general">General</option>
-                            <option value="obc">OBC</option>
-                            <option value="sc">SC</option>
-                            <option value="st">ST</option>
-                            <option value="ews">EWS</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="gpa">Current GPA/Percentage</label>
-                        <input type="number" id="gpa" step="0.1" min="0" max="100" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="yearOfStudy">Year of Study</label>
-                        <select id="yearOfStudy" required>
-                            <option value="">Select Year</option>
-                            <option value="12th">12th Grade</option>
-                            <option value="1st">1st Year</option>
-                            <option value="2nd">2nd Year</option>
-                            <option value="3rd">3rd Year</option>
-                            <option value="4th">4th Year</option>
-                            <option value="postgrad">Post Graduate</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group" style="margin-bottom: 25px;">
-                    <label for="achievements">Achievements & Extracurriculars</label>
-                    <textarea id="achievements" rows="4" placeholder="List your achievements, competitions, sports, volunteer work, etc."></textarea>
-                </div>
-                <div class="btn-container">
-                    <button type="submit" class="btn">Create Profile & Find Scholarships</button>
-                </div>
-            </form>
-        </div>
-
-        <div class="dashboard" id="dashboard">
-            <div class="dashboard-grid">
-                <div class="dashboard-card" style="grid-column: 1 / -1;">
-                    <h3 style="color: #2d3748; margin-bottom: 20px;">📚 Recommended Scholarships</h3>
-                    <div id="scholarshipList"></div>
-                </div>
-
-                <div class="dashboard-card">
-                    <h3 style="color: #2d3748; margin-bottom: 20px;">🔖 Saved Scholarships</h3>
-                    <div id="bookmarksList">
-                        <p style="color: #718096; font-style: italic;">No bookmarks yet. Start saving scholarships!</p>
-                    </div>
-                </div>
-
-                <div class="dashboard-card">
-                    <h3 style="color: #2d3748; margin-bottom: 20px;">⏰ Upcoming Deadlines</h3>
-                    <div id="deadlinesList"></div>
-                </div>
-
-                <div class="dashboard-card">
-                    <h3 style="color: #2d3748; margin-bottom: 20px;">📅 December 2024</h3>
-                    <div class="calendar-grid">
-                        <div style="font-weight: bold; text-align: center;">Sun</div>
-                        <div style="font-weight: bold; text-align: center;">Mon</div>
-                        <div style="font-weight: bold; text-align: center;">Tue</div>
-                        <div style="font-weight: bold; text-align: center;">Wed</div>
-                        <div style="font-weight: bold; text-align: center;">Thu</div>
-                        <div style="font-weight: bold; text-align: center;">Fri</div>
-                        <div style="font-weight: bold; text-align: center;">Sat</div>
-                    </div>
-                    <div class="calendar-grid" id="calendarDays"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="chatbot-container">
-        <div class="chatbot-window" id="chatbotWindow">
-            <div class="chatbot-header">
-                <span style="font-size: 20px;">🤖</span>
-                <div>
-                    <div style="font-weight: 600;">Robo Assistant</div>
-                    <div style="font-size: 0.8rem; opacity: 0.9;">Always here to help!</div>
-                </div>
-            </div>
-            <div class="chatbot-messages" id="chatbotMessages">
-                <div class="message bot">Hi, I'm Robo! How can I help you find the perfect scholarship today? 🎓</div>
-            </div>
-            <div class="chatbot-input">
-                <input type="text" id="chatbotInput" placeholder="Ask me about scholarships..." maxlength="200">
-                <button id="chatbotSend">Send</button>
-            </div>
-        </div>
-        <button class="chatbot-button" id="chatbotToggle">🤖</button>
-    </div>
-
-    <script>
-        // --- Sample Scholarship Data ---
-        const scholarships = {
-            general: [
-                {
-                    title: "SBI Asha Scholarship 2025-26",
-                    amount: "Up to ₹20 Lakh",
-                    details: "For school and college students, including those pursuing studies abroad.",
-                    deadline: "2025-10-31",
-                    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop",
-                    link: "https://www.sbi.co.in/web/corporate-banking/sbi-foundation"
-                },
-                {
-                    title: "National Overseas Scholarship (NOS)",
-                    amount: "Varies",
-                    details: "For SC/ST students for masters & PhD abroad. GPA > 60%",
-                    deadline: "2025-03-31",
-                    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
-                    link: "https://nosmsje.gov.in/"
-                },
-                {
-                    title: "Innovation Leaders Grant",
-                    amount: "₹1,00,000",
-                    details: "For students with innovative projects in STEM fields.",
-                    deadline: "2025-01-20",
-                    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop",
-                    link: "#"
-                }
-            ],
-            obc: [
-                {
-                    title: "Post-Matric Scholarship for OBC",
-                    amount: "Varies",
-                    details: "Government scholarship for OBC students in higher education.",
-                    deadline: "2025-01-31",
-                    image: "https://images.unsplash.com/photo-1607013407627-6ee814329547?q=80&w=600&auto=format&fit=crop",
-                    link: "https://scholarships.gov.in/"
-                }
-            ],
-            sc: [
-                {
-                    title: "SC/ST Excellence Award",
-                    amount: "₹60,000",
-                    details: "State government scholarship for SC students.",
-                    deadline: "2025-01-10",
-                    image: "https://images.unsplash.com/photo-1600195077909-46e573870d99?q=80&w=600&auto=format&fit=crop",
-                    link: "#"
-                }
-            ],
-            st: [
-                {
-                    title: "Tribal Development Scholarship",
-                    amount: "₹60,000",
-                    details: "Tribal development fund for ST students.",
-                    deadline: "2025-01-10",
-                    image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=600&auto=format&fit=crop",
-                    link: "#"
-                }
-            ],
-            ews: [
-                {
-                    title: "EWS Support Grant",
-                    amount: "₹45,000",
-                    details: "For economically weaker sections with valid certificate.",
-                    deadline: "2025-01-15",
-                    image: "https://images.unsplash.com/photo-1594642418391-7f9a8f460431?q=80&w=600&auto=format&fit=crop",
-                    link: "#"
-                }
-            ]
-        };
-
-        let userProfile = {};
-        let bookmarkedScholarships = [];
-
-        // --- Profile Form Submission ---
-        document.getElementById('profileForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            userProfile = {
-                caste: document.getElementById('caste').value,
-                gpa: parseFloat(document.getElementById('gpa').value)
-            };
-
-            document.getElementById('profileSection').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
-            
-            renderDashboard();
-        });
-
-        function renderDashboard() {
-            generateScholarshipRecommendations();
-            updateBookmarksList();
-            generateDeadlines();
-            generateCalendar();
-        }
-
-        // --- Scholarship Card Generation ---
-        function generateScholarshipRecommendations() {
-            const scholarshipList = document.getElementById('scholarshipList');
-            let recommendations = [...(scholarships.general || [])];
-            
-            if (userProfile.caste && scholarships[userProfile.caste]) {
-                recommendations.push(...scholarships[userProfile.caste]);
-            }
-            
-            const filteredRecommendations = recommendations.filter(scholarship => {
-                if (!scholarship.title) return false; // Filter out empty entries
-                const requiredGpaMatch = scholarship.details.match(/GPA > (\d+)/);
-                if (requiredGpaMatch) {
-                    const requiredGpa = parseInt(requiredGpaMatch[1], 10);
-                    return userProfile.gpa >= requiredGpa;
-                }
-                return true;
-            });
-            
-            if(filteredRecommendations.length === 0) {
-                scholarshipList.innerHTML = `<p style="color: #718096; text-align: center; grid-column: 1 / -1;">No scholarships match your profile currently. Please check back later!</p>`;
-                return;
-            }
-
-            scholarshipList.innerHTML = filteredRecommendations.map(scholarship => {
-                const isBookmarked = bookmarkedScholarships.some(b => b.title === scholarship.title);
-                return `
-                <div class="scholarship-card">
-                    <img src="${scholarship.image || 'https://via.placeholder.com/600x400'}" alt="${scholarship.title}" class="scholarship-image" onclick="openLink('${scholarship.link}')">
-                    <div class="scholarship-content">
-                        <div class="scholarship-title" onclick="openLink('${scholarship.link}')">${scholarship.title}</div>
-                        <div class="scholarship-details">${scholarship.details}</div>
-                        <div>
-                            <div class="scholarship-amount">${scholarship.amount}</div>
-                            <div class="scholarship-deadline">Deadline: ${new Date(scholarship.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
-                        </div>
-                        <div class="scholarship-buttons">
-                            <button class="apply-btn" onclick="openLink('${scholarship.link}')">Apply Now</button>
-                            <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark(event, '${scholarship.title}')">
-                                ${isBookmarked ? '✅ Saved' : '📌 Save'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                `}).join('');
-        }
-        
-        function openLink(link) {
-            if (link && link !== '#') {
-                window.open(link, '_blank');
-            }
-        }
-
-        // --- Bookmarking Logic ---
-        function toggleBookmark(event, scholarshipTitle) {
-            event.stopPropagation(); // Prevent card click event from firing
-            const button = event.currentTarget;
-            const index = bookmarkedScholarships.findIndex(s => s.title === scholarshipTitle);
-
-            if (index > -1) {
-                bookmarkedScholarships.splice(index, 1);
-                button.classList.remove('bookmarked');
-                button.innerHTML = '📌 Save';
-            } else {
-                const allScholarships = [].concat(...Object.values(scholarships));
-                const scholarship = allScholarships.find(s => s.title === scholarshipTitle);
-                if(scholarship) {
-                    bookmarkedScholarships.push(scholarship);
-                    button.classList.add('bookmarked');
-                    button.innerHTML = '✅ Saved';
-                }
-            }
-            updateBookmarksList();
-        }
-
-        function updateBookmarksList() {
-            const bookmarksList = document.getElementById('bookmarksList');
-            if (bookmarkedScholarships.length === 0) {
-                bookmarksList.innerHTML = '<p style="color: #718096; font-style: italic;">No bookmarks yet. Start saving scholarships!</p>';
-            } else {
-                bookmarksList.innerHTML = bookmarkedScholarships.map(scholarship => `
-                    <div style="background: rgba(255,255,255,0.7); padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 3px solid #667eea;">
-                        <div style="font-weight: 600; color: #2d3748;">${scholarship.title}</div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // --- Deadline & Calendar Generation ---
-        function generateDeadlines() {
-            const deadlinesList = document.getElementById('deadlinesList');
-            const allScholarships = [].concat(...Object.values(scholarships)).filter(s => s.title);
-            const upcomingDeadlines = allScholarships
-                .sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
-                .slice(0, 3);
-
-            deadlinesList.innerHTML = upcomingDeadlines.map(s => `
-                <div class="timeline-item">
-                    <div class="timeline-date">${new Date(s.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</div>
-                    <div>${s.title}</div>
-                </div>
-            `).join('');
-        }
-
-        function generateCalendar() {
-            const calendarDays = document.getElementById('calendarDays');
-            const deadlineDates = [15, 20, 30]; // Sample December deadlines
-            
-            let calendarHTML = '';
-            for (let day = 1; day <= 31; day++) {
-                const hasDeadline = deadlineDates.includes(day);
-                calendarHTML += `<div class="calendar-day ${hasDeadline ? 'has-deadline' : ''}">${day}</div>`;
-            }
-            calendarDays.innerHTML = calendarHTML;
-        }
-
-        <!-- // --- Chatbot Functionality ---
-        const chatbotToggle = document.getElementById('chatbotToggle');
-        const chatbotWindow = document.getElementById('chatbotWindow');
-        const chatbotMessages = document.getElementById('chatbotMessages');
-        const chatbotInput = document.getElementById('chatbotInput');
-        const chatbotSend = document.getElementById('chatbotSend');
-
-        chatbotToggle.addEventListener('click', () => chatbotWindow.classList.toggle('active'));
-
-        function addMessage(message, isUser = false) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-            messageDiv.textContent = message;
-            chatbotMessages.appendChild(messageDiv);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-        }
-
-        function getBotResponse(userMessage) {
-            const message = userMessage.toLowerCase();
-            if (message.includes('scholarship') || message.includes('eligibility')) return "Based on your profile, I recommend checking the listed scholarships. For exact GPA and other criteria, click on a card to visit the official page.";
-            if (message.includes('deadline')) return "You can see the main deadlines on the dashboard. The SBI Asha Scholarship deadline is October 31st, 2025.";
-            if (message.includes('apply')) return "To apply, click the 'Apply Now' button on a scholarship card. This will take you to the official portal where you can find the application form and requirements.";
-            if (message.includes('thank')) return "You're welcome! Good luck with your applications! 🎓✨";
-            return "I can help with questions about eligibility, deadlines, or how to apply. What would you like to know?";
-        }
-
-        function sendMessage() {
-            const message = chatbotInput.value.trim();
-            if (message) {
-                addMessage(message, true);
-                chatbotInput.value = '';
-                setTimeout(() => addMessage(getBotResponse(message)), 1000);
-            }
-        }
-
-        chatbotSend.addEventListener('click', sendMessage);
-        chatbotInput.addEventListener('keypress', (e) => e.key === 'Enter' && sendMessage());
-
-        document.addEventListener('click', (e) => {
-            if (!chatbotToggle.contains(e.target) && !chatbotWindow.contains(e.target) && !e.target.closest('.chatbot-window')) {
-                chatbotWindow.classList.remove('active');
-            }
-        }); -->
-    </script>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1000,6 +19,45 @@
             --accent-pastel: rgba(250, 177, 160, 0.2);
             --orange-main: #dd6b20;
         }
+        /* Add this CSS inside your existing <style> tag */
+
+.eligibility-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.badge {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.year-badge {
+    background-color: #e2e8f0;
+    color: #4a5568;
+}
+
+.gpa-badge {
+    background-color: #c6f6d5;
+    color: #2f855a;
+}
+
+.type-badge {
+    background-color: #bee3f8;
+    color: #2c5282;
+}
+
+.scholarship-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Pushes this to the bottom of the card */
+    padding-top: 10px;
+}
 
         * {
             margin: 0;
@@ -1009,45 +67,53 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f4f7fa; /* Lighter background for content area */
+            background: #f4f7fa;
+            /* Lighter background for content area */
             min-height: 100vh;
             position: relative;
         }
-        
+
         /* Navbar Styles */
         .navbar {
             background: var(--white);
             padding: 2rem 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 0;
             z-index: 1000;
             width: 100%;
         }
+
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
-            justify-content: flex-start; /* Changed from center */
+            justify-content: flex-start;
+            /* Changed from center */
             align-items: center;
-            gap: 2rem; /* Kept for spacing */
+            gap: 2rem;
+            /* Kept for spacing */
         }
+
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
             color: var(--blue-main);
             text-decoration: none;
         }
+
         .nav-menu {
             display: flex;
             list-style: none;
             gap: 1.5rem;
             align-items: center;
         }
+
         .nav-item {
             position: relative;
         }
+
         .nav-link {
             text-decoration: none;
             color: var(--text-dark);
@@ -1059,11 +125,12 @@
             align-items: center;
             gap: 0.5rem;
         }
+
         .nav-link:hover {
             background: var(--primary-pastel);
             color: var(--blue-main);
         }
-        
+
         .dropdown {
             position: absolute;
             top: 120%;
@@ -1071,18 +138,20 @@
             transform: translateX(-50%);
             background: var(--white);
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             padding: 0.5rem;
             min-width: 220px;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
         }
+
         .nav-item:hover .dropdown {
             opacity: 1;
             visibility: visible;
             top: 100%;
         }
+
         .dropdown-item {
             display: block;
             padding: 0.75rem 1rem;
@@ -1092,12 +161,15 @@
             transition: all 0.3s ease;
             font-weight: 500;
         }
+
         .dropdown-item:hover {
             background: var(--accent-pastel);
             color: var(--orange-main);
         }
+
         .mobile-menu-btn {
-            display: none; /* Hidden on desktop */
+            display: none;
+            /* Hidden on desktop */
             background: none;
             border: none;
             font-size: 1.5rem;
@@ -1122,7 +194,7 @@
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .header p {
@@ -1157,7 +229,9 @@
             font-size: 0.9rem;
         }
 
-        .form-group input, .form-group select, .form-group textarea {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             padding: 12px 16px;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
@@ -1166,7 +240,9 @@
             background: #f8fafc;
         }
 
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -1225,9 +301,9 @@
         }
 
         #scholarshipList {
-             display: grid;
-             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-             gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
         .scholarship-card {
@@ -1270,7 +346,7 @@
         .scholarship-details {
             color: #718096;
             font-size: 0.9rem;
-            flex-grow: 1; 
+            flex-grow: 1;
         }
 
         .scholarship-amount {
@@ -1284,14 +360,15 @@
             color: #e53e3e;
             font-weight: 600;
         }
-        
+
         .scholarship-buttons {
             display: flex;
             gap: 10px;
             margin-top: 12px;
         }
 
-        .apply-btn, .bookmark-btn {
+        .apply-btn,
+        .bookmark-btn {
             border: none;
             padding: 8px 12px;
             border-radius: 8px;
@@ -1314,7 +391,7 @@
             background: #f0f2f5;
             color: #4a5568;
         }
-        
+
         .bookmark-btn:hover {
             background: #e2e8f0;
         }
@@ -1386,6 +463,7 @@
             right: 30px;
             z-index: 1000;
         }
+
         .chatbot-button {
             width: 60px;
             height: 60px;
@@ -1401,10 +479,12 @@
             color: white;
             transition: all 0.3s ease;
         }
+
         .chatbot-button:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
         }
+
         .chatbot-window {
             position: absolute;
             bottom: 80px;
@@ -1421,11 +501,13 @@
             display: flex;
             flex-direction: column;
         }
+
         .chatbot-window.active {
             transform: translateY(0) scale(1);
             opacity: 1;
             visibility: visible;
         }
+
         .chatbot-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -1435,12 +517,14 @@
             align-items: center;
             gap: 10px;
         }
+
         .chatbot-messages {
             padding: 20px;
             flex-grow: 1;
             overflow-y: auto;
             background: #f8fafc;
         }
+
         .message {
             margin-bottom: 15px;
             padding: 12px 16px;
@@ -1448,16 +532,19 @@
             max-width: 80%;
             line-height: 1.4;
         }
+
         .message.bot {
             background: #e2e8f0;
             color: #2d3748;
             align-self: flex-start;
         }
+
         .message.user {
             background: #667eea;
             color: white;
             margin-left: auto;
         }
+
         .chatbot-input {
             display: flex;
             padding: 15px;
@@ -1465,6 +552,7 @@
             background: white;
             border-radius: 0 0 16px 16px;
         }
+
         .chatbot-input input {
             flex: 1;
             border: 2px solid #e2e8f0;
@@ -1474,9 +562,11 @@
             font-size: 0.9rem;
             transition: border-color 0.3s ease;
         }
+
         .chatbot-input input:focus {
             border-color: #667eea;
         }
+
         .chatbot-input button {
             background: #667eea;
             color: white;
@@ -1487,35 +577,48 @@
             cursor: pointer;
             font-size: 0.9rem;
         }
-        
+
         /* Responsive Styles */
         @media (max-width: 768px) {
-            .nav-menu, .login-btn {
-                display: none; /* Hide desktop menu on mobile */
+
+            .nav-menu,
+            .login-btn {
+                display: none;
+                /* Hide desktop menu on mobile */
             }
+
             .mobile-menu-btn {
-                display: block; /* Show hamburger icon */
+                display: block;
+                /* Show hamburger icon */
             }
+
             .container {
                 padding: 15px;
             }
+
             .header h1 {
                 font-size: 2rem;
             }
-            .form-grid, #scholarshipList {
+
+            .form-grid,
+            #scholarshipList {
                 grid-template-columns: 1fr;
             }
+
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
+
             .chatbot-window {
                 width: calc(100vw - 40px);
                 height: 70vh;
             }
+
             .chatbot-container {
                 bottom: 20px;
                 right: 20px;
             }
+
             .chatbot-button {
                 width: 50px;
                 height: 50px;
@@ -1524,6 +627,7 @@
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar">
         <div class="nav-container">
@@ -1563,8 +667,13 @@
                         <i class="fas fa-envelope"></i> Contact
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="#" id="logout-btn" class="nav-link" style="color: #e53e3e;">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
             </ul>
-            
+
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
@@ -1572,8 +681,8 @@
     </nav>
 
     <div class="container">
-        
-        
+
+
         <div class="section profile-section" id="profileSection">
             <h2 style="color: #2d3748; margin-bottom: 25px; font-size: 1.8rem;">Create Your Profile</h2>
             <form id="profileForm">
@@ -1630,17 +739,18 @@
                         <select id="yearOfStudy" required>
                             <option value="">Select Year</option>
                             <option value="12th">12th Grade</option>
-                            <option value="1st">1st Year</option>
-                            <option value="2nd">2nd Year</option>
-                            <option value="3rd">3rd Year</option>
-                            <option value="4th">4th Year</option>
+                            <option value="1">1st Year</option>
+                            <option value="2">2nd Year</option>
+                            <option value="3">3rd Year</option>
+                            <option value="4">4th Year</option>
                             <option value="postgrad">Post Graduate</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group" style="margin-bottom: 25px;">
                     <label for="achievements">Achievements & Extracurriculars</label>
-                    <textarea id="achievements" rows="4" placeholder="List your achievements, competitions, sports, volunteer work, etc."></textarea>
+                    <textarea id="achievements" rows="4"
+                        placeholder="List your achievements, competitions, sports, volunteer work, etc."></textarea>
                 </div>
                 <div class="btn-container">
                     <button type="submit" class="btn">Create Profile & Find Scholarships</button>
@@ -1704,383 +814,186 @@
         <button class="chatbot-button" id="chatbotToggle">🤖</button>
     </div>
 
-    <!-- <script>
-        // --- Sample Scholarship Data ---
-        const scholarships = {
-            general: [
-                {
-            title: "SBI Asha Scholarship 2025-26",
-            amount: "Up to ₹20 Lakh",
-            details: "For school and college students, including those pursuing studies abroad.",
-            deadline: "2025-10-31",
-            image: "sbi.png",
-            link: "https://www.sbi.co.in/web/corporate-banking/sbi-foundation"
-        },
-        {
-            title: "National Overseas Scholarship (NOS)",
-            amount: "Varies",
-            details: "For SC/ST students for masters & PhD abroad. GPA > 60%",
-            deadline: "2025-03-31",
-            image: "nos1.jpeg",
-            link: "https://nosmsje.gov.in/"
-        },
-        {
-            title: "Indira Gandhi Scholarship for Single Girl Child",
-            amount: "6.25L",
-            details: "For single girl children pursuing postgraduate studies.",
-            deadline: "2025-03-31",
-            image: "nos.png",
-            link: "https://nosmsje.gov.in/"
-        },
-        {
-            title: "PM-USP Central Sector Scheme of Scholarship",
-            amount: "Varies",
-            details: "For meritorious students from low-income families to pursue higher education.",
-            deadline: "Varies",
-            image: "nsp.png",
-            link: "https://scholarships.gov.in/"
-        },
-        {
-            title: "AICTE Saksham Scholarship Scheme",
-            amount: "₹50,000 per annum",
-            details: "For specially-abled students pursuing a technical diploma or degree.",
-            deadline: "Varies",
-            image: "aicte.jpeg",
-            link: "https://www.aicte-india.org/"
-        }
-                   
-            ],
-            obc: [
-                  {
-            title: "PM-YASASVI Post-Matric Scholarship",
-            amount: "Up to ₹20,000 annually",
-            details: "For OBC, EBC, and DNT students pursuing post-matriculation studies.",
-            deadline: "September-October (Tentative)",
-            image: "nsp.png",
-            link: "https://scholarships.gov.in/"
-        },
-        {
-            title: "Dr. Ambedkar Post Matric Scholarship for OBCs",
-            amount: "Varies by state",
-            details: "Financial support for OBC students pursuing higher education from Class 11 onwards.",
-            deadline: "Varies by state",
-            image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
-            link: "https://socialjustice.gov.in/schemes"
-        },
-        {
-            title: "National Overseas Scholarship (NOS)",
-            amount: "Varies by country",
-            details: "For OBC students (and others) to pursue master's and Ph.D. degrees abroad.",
-            deadline: "2025-10-24",
-            image: "nos.png",
-            link: "https://nosmsje.gov.in/"
-        },
-        {
-            title: "National Fellowship for OBC Students (NF-OBC)",
-            amount: "₹31,000 to ₹35,000 per month",
-            details: "A fellowship for OBC students pursuing M.Phil. and Ph.D. degrees in Indian universities.",
-            deadline: "October-December (Tentative)",
-            image: "nfobc.png",
-            link: "https://nbcfdc.gov.in/"
-        }
-            ],
-            sc: [
-                {
-                    title: "SC/ST Excellence Award",
-                    amount: "₹60,000",
-                    details: "State government scholarship for SC students.",
-                    deadline: "2025-01-10",
-                    image: "https://images.unsplash.com/photo-1600195077909-46e573870d99?q=80&w=600&auto=format&fit=crop",
-                    link: "#"
-                }
-            ],
-            st: [
-                {
-                    title: "Tribal Development Scholarship",
-                    amount: "₹60,000",
-                    details: "Tribal development fund for ST students.",
-                    deadline: "2025-01-10",
-                    image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=600&auto=format&fit=crop",
-                    link: "#"
-                }
-            ],
-            ews: [
-                {
-                    title: "EWS Support Grant",
-                    amount: "₹45,000",
-                    details: "For economically weaker sections with valid certificate.",
-                    deadline: "2025-01-15",
-                    image: "https://images.unsplash.com/photo-1594642418391-7f9a8f460431?q=80&w=600&auto=format&fit=crop",
-                    link: "#"
-                }
-            ]
-        };
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
-        let userProfile = {};
-        let bookmarkedScholarships = [];
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
-        // --- Profile Form Submission ---
-        document.getElementById('profileForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            userProfile = {
-                caste: document.getElementById('caste').value,
-                gpa: parseFloat(document.getElementById('gpa').value)
-            };
-
-            document.getElementById('profileSection').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
-            
-            renderDashboard();
-        });
-
-        function renderDashboard() {
-            generateScholarshipRecommendations();
-            updateBookmarksList();
-            generateDeadlines();
-            generateCalendar();
-        }
-
-        // --- Scholarship Card Generation ---
-        function generateScholarshipRecommendations() {
-            const scholarshipList = document.getElementById('scholarshipList');
-            let recommendations = [...(scholarships.general || [])];
-            
-            if (userProfile.caste && scholarships[userProfile.caste]) {
-                recommendations.push(...scholarships[userProfile.caste]);
-            }
-            
-            const filteredRecommendations = recommendations.filter(scholarship => {
-                if (!scholarship.title) return false; // Filter out empty entries
-                const requiredGpaMatch = scholarship.details.match(/GPA > (\d+)/);
-                if (requiredGpaMatch) {
-                    const requiredGpa = parseInt(requiredGpaMatch[1], 10);
-                    return userProfile.gpa >= requiredGpa;
-                }
-                return true;
-            });
-            
-            if(filteredRecommendations.length === 0) {
-                scholarshipList.innerHTML = `<p style="color: #718096; text-align: center; grid-column: 1 / -1;">No scholarships match your profile currently. Please check back later!</p>`;
-                return;
-            }
-
-            scholarshipList.innerHTML = filteredRecommendations.map(scholarship => {
-                const isBookmarked = bookmarkedScholarships.some(b => b.title === scholarship.title);
-                return `
-                <div class="scholarship-card">
-                    <img src="${scholarship.image || 'https://via.placeholder.com/600x400'}" alt="${scholarship.title}" class="scholarship-image" onclick="openLink('${scholarship.link}')">
-                    <div class="scholarship-content">
-                        <div class="scholarship-title" onclick="openLink('${scholarship.link}')">${scholarship.title}</div>
-                        <div class="scholarship-details">${scholarship.details}</div>
-                        <div>
-                            <div class="scholarship-amount">${scholarship.amount}</div>
-                            <div class="scholarship-deadline">Deadline: ${new Date(scholarship.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
-                        </div>
-                        <div class="scholarship-buttons">
-                            <button class="apply-btn" onclick="openLink('${scholarship.link}')">Apply Now</button>
-                            <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark(event, '${scholarship.title}')">
-                                ${isBookmarked ? '✅ Saved' : '📌 Save'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                `}).join('');
-        }
-        
-        function openLink(link) {
-            if (link && link !== '#') {
-                window.open(link, '_blank');
-            }
-        }
-
-        // --- Bookmarking Logic ---
-        function toggleBookmark(event, scholarshipTitle) {
-            event.stopPropagation(); // Prevent card click event from firing
-            const button = event.currentTarget;
-            const index = bookmarkedScholarships.findIndex(s => s.title === scholarshipTitle);
-
-            if (index > -1) {
-                bookmarkedScholarships.splice(index, 1);
-                button.classList.remove('bookmarked');
-                button.innerHTML = '📌 Save';
-            } else {
-                const allScholarships = [].concat(...Object.values(scholarships));
-                const scholarship = allScholarships.find(s => s.title === scholarshipTitle);
-                if(scholarship) {
-                    bookmarkedScholarships.push(scholarship);
-                    button.classList.add('bookmarked');
-                    button.innerHTML = '✅ Saved';
-                }
-            }
-            updateBookmarksList();
-        }
-
-        function updateBookmarksList() {
-            const bookmarksList = document.getElementById('bookmarksList');
-            if (bookmarkedScholarships.length === 0) {
-                bookmarksList.innerHTML = '<p style="color: #718096; font-style: italic;">No bookmarks yet. Start saving scholarships!</p>';
-            } else {
-                bookmarksList.innerHTML = bookmarkedScholarships.map(scholarship => `
-                    <div style="background: rgba(255,255,255,0.7); padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 3px solid #667eea;">
-                        <div style="font-weight: 600; color: #2d3748;">${scholarship.title}</div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // --- Deadline & Calendar Generation ---
-        function generateDeadlines() {
-            const deadlinesList = document.getElementById('deadlinesList');
-            const allScholarships = [].concat(...Object.values(scholarships)).filter(s => s.title);
-            const upcomingDeadlines = allScholarships
-                .sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
-                .slice(0, 3);
-
-            deadlinesList.innerHTML = upcomingDeadlines.map(s => `
-                <div class="timeline-item">
-                    <div class="timeline-date">${new Date(s.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</div>
-                    <div>${s.title}</div>
-                </div>
-            `).join('');
-        }
-
-        function generateCalendar() {
-            const calendarDays = document.getElementById('calendarDays');
-            const deadlineDates = [15, 20, 30]; // Sample December deadlines
-            
-            let calendarHTML = '';
-            for (let day = 1; day <= 31; day++) {
-                const hasDeadline = deadlineDates.includes(day);
-                calendarHTML += `<div class="calendar-day ${hasDeadline ? 'has-deadline' : ''}">${day}</div>`;
-            }
-            calendarDays.innerHTML = calendarHTML;
-        }
-
-        // --- Chatbot Functionality ---
-        const chatbotToggle = document.getElementById('chatbotToggle');
-        const chatbotWindow = document.getElementById('chatbotWindow');
-        const chatbotMessages = document.getElementById('chatbotMessages');
-        const chatbotInput = document.getElementById('chatbotInput');
-        const chatbotSend = document.getElementById('chatbotSend');
-
-        chatbotToggle.addEventListener('click', () => chatbotWindow.classList.toggle('active'));
-
-        function addMessage(message, isUser = false) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-            messageDiv.textContent = message;
-            chatbotMessages.appendChild(messageDiv);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-        }
-
-        function getBotResponse(userMessage) {
-            const message = userMessage.toLowerCase();
-            if (message.includes('scholarship') || message.includes('eligibility')) return "Based on your profile, I recommend checking the listed scholarships. For exact GPA and other criteria, click on a card to visit the official page.";
-            if (message.includes('deadline')) return "You can see the main deadlines on the dashboard. The SBI Asha Scholarship deadline is October 31st, 2025.";
-            if (message.includes('apply')) return "To apply, click the 'Apply Now' button on a scholarship card. This will take you to the official portal where you can find the application form and requirements.";
-            if (message.includes('thank')) return "You're welcome! Good luck with your applications! 🎓✨";
-            return "I can help with questions about eligibility, deadlines, or how to apply. What would you like to know?";
-        }
-
-        function sendMessage() {
-            const message = chatbotInput.value.trim();
-            if (message) {
-                addMessage(message, true);
-                chatbotInput.value = '';
-                setTimeout(() => addMessage(getBotResponse(message)), 1000);
-            }
-        }
-
-        chatbotSend.addEventListener('click', sendMessage);
-        chatbotInput.addEventListener('keypress', (e) => e.key === 'Enter' && sendMessage());
-
-        document.addEventListener('click', (e) => {
-            if (!chatbotToggle.contains(e.target) && !chatbotWindow.contains(e.target) && !e.target.closest('.chatbot-window')) {
-                chatbotWindow.classList.remove('active');
-            }
-        });
-    </script> -->
     <script>
-        // --- Sample Scholarship Data ---
+        // --- 1. FIREBASE INITIALIZATION ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyDoRHiwN9GjKxk8FCpeu7k3KUOggHzhGBw", // Your API Key
+            authDomain: "scholarship-app-8ad28.firebaseapp.com",
+            projectId: "scholarship-app-8ad28",
+            storageBucket: "scholarship-app-8ad28.appspot.com",
+            messagingSenderId: "297508787243",
+            appId: "1:297508787243:web:5a8da903ea9225f172c66e",
+            measurementId: "G-BN8MF09R1Q"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+
+        // --- 2. GET HTML ELEMENTS ---
+        const profileSection = document.getElementById('profileSection');
+        const dashboardSection = document.getElementById('dashboard');
+        const profileForm = document.getElementById('profileForm');
+        const scholarshipList = document.getElementById('scholarshipList');
+        const bookmarksList = document.getElementById('bookmarksList');
+        const deadlinesList = document.getElementById('deadlinesList');
+        const calendarDays = document.getElementById('calendarDays');
+
+        // Chatbot Elements
+        const chatbotContainer = document.querySelector('.chatbot-container');
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotSend = document.getElementById('chatbotSend');
+
+        // === NEWLY ADDED ELEMENT ===
+        const logoutButton = document.getElementById('logout-btn');
+
+
+        // --- 3. LOCAL DATA & VARIABLES ---
         const scholarships = {
             general: [
                 {
-            title: "SBI Asha Scholarship 2025-26",
-            amount: "Up to ₹20 Lakh",
-            details: "For school and college students, including those pursuing studies abroad.",
-            deadline: "2025-10-31",
-            image: "sbi.png",
-            link: "https://www.sbi.co.in/web/corporate-banking/sbi-foundation"
-        },
-        {
-            title: "National Overseas Scholarship (NOS)",
-            amount: "Varies",
-            details: "For SC/ST students for masters & PhD abroad. GPA > 60%",
-            deadline: "2025-03-31",
-            image: "nos1.jpeg",
-            link: "https://nosmsje.gov.in/"
-        },
-        {
-            title: "Indira Gandhi Scholarship for Single Girl Child",
-            amount: "6.25L",
-            details: "For single girl children pursuing postgraduate studies.",
-            deadline: "2025-03-31",
-            image: "nos.png",
-            link: "https://nosmsje.gov.in/"
-        },
-        {
-            title: "PM-USP Central Sector Scheme of Scholarship",
-            amount: "Varies",
-            details: "For meritorious students from low-income families to pursue higher education.",
-            deadline: "Varies",
-            image: "nsp.png",
-            link: "https://scholarships.gov.in/"
-        },
-        {
-            title: "AICTE Saksham Scholarship Scheme",
-            amount: "₹50,000 per annum",
-            details: "For specially-abled students pursuing a technical diploma or degree.",
-            deadline: "Varies",
-            image: "aicte.jpeg",
-            link: "https://www.aicte-india.org/"
-        }
+                    title: "SBI Asha Scholarship 2025-26",
+                    amount: "Up to ₹20 Lakh",
+                    details: "For school and college students, including those pursuing studies abroad.",
+                    deadline: "2025-10-31",
+                    image: "sbi.png",
+                    link: "https://www.sbi.co.in/web/corporate-banking/sbi-foundation",
+                    minGPA: null,
+                    incomeLimit: null,
+                    type: "general",
+                    minYear: 1,
+                    maxYear: 'pg',
+                    eligibleYears: ['1', '2', '3', '4', 'pg']
+                },
+                {
+                    title: "National Overseas Scholarship (NOS)",
+                    amount: "Varies",
+                    details: "For SC/ST students for masters & PhD abroad.",
+                    deadline: "2025-03-31",
+                    image: "nos1.jpeg",
+                    link: "https://nosmsje.gov.in/",
+                    minGPA: 60,
+                    incomeLimit: 800000,
+                    type: "merit",
+                    minYear: 3,
+                    maxYear: 'pg',
+                    eligibleYears: ['3', '4', 'pg']
+                },
+                {
+                    title: "Indira Gandhi Scholarship for Single Girl Child",
+                    amount: "₹6.25L",
+                    details: "For single girl children pursuing postgraduate studies.",
+                    deadline: "2025-03-31",
+                    image: "nos.png",
+                    link: "https://nosmsje.gov.in/",
+                    minGPA: null,
+                    incomeLimit: null,
+                    type: "general",
+                    minYear: 'pg',
+                    maxYear: 'pg',
+                    eligibleYears: ['pg']
+                },
+                {
+                    title: "PM-USP Central Sector Scheme of Scholarship",
+                    amount: "Varies",
+                    details: "For meritorious students from low-income families to pursue higher education.",
+                    deadline: "Varies",
+                    image: "nsp.png",
+                    link: "https://scholarships.gov.in/",
+                    minGPA: null,
+                    incomeLimit: 450000,
+                    type: "need",
+                    minYear: 1,
+                    maxYear: 4,
+                    eligibleYears: ['1', '2', '3', '4']
+                },
+                {
+                    title: "AICTE Saksham Scholarship Scheme",
+                    amount: "₹50,000 per annum",
+                    details: "For specially-abled students pursuing a technical diploma or degree.",
+                    deadline: "Varies",
+                    image: "aicte.jpeg",
+                    link: "https://www.aicte-india.org/",
+                    minGPA: null,
+                    incomeLimit: null,
+                    type: "special",
+                    minYear: 1,
+                    maxYear: 4,
+                    eligibleYears: ['1', '2', '3', '4']
+                }
+            ],
 
-            ],
             obc: [
-                  {
-            title: "PM-YASASVI Post-Matric Scholarship",
-            amount: "Up to ₹20,000 annually",
-            details: "For OBC, EBC, and DNT students pursuing post-matriculation studies.",
-            deadline: "September-October (Tentative)",
-            image: "nsp.png",
-            link: "https://scholarships.gov.in/"
-        },
-        {
-            title: "Dr. Ambedkar Post Matric Scholarship for OBCs",
-            amount: "Varies by state",
-            details: "Financial support for OBC students pursuing higher education from Class 11 onwards.",
-            deadline: "Varies by state",
-            image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
-            link: "https://socialjustice.gov.in/schemes"
-        },
-        {
-            title: "National Overseas Scholarship (NOS)",
-            amount: "Varies by country",
-            details: "For OBC students (and others) to pursue master's and Ph.D. degrees abroad.",
-            deadline: "2025-10-24",
-            image: "nos.png",
-            link: "https://nosmsje.gov.in/"
-        },
-        {
-            title: "National Fellowship for OBC Students (NF-OBC)",
-            amount: "₹31,000 to ₹35,000 per month",
-            details: "A fellowship for OBC students pursuing M.Phil. and Ph.D. degrees in Indian universities.",
-            deadline: "October-December (Tentative)",
-            image: "nfobc.png",
-            link: "https://nbcfdc.gov.in/"
-        }
+                {
+                    title: "PM-YASASVI Post-Matric Scholarship",
+                    amount: "Up to ₹20,000 annually",
+                    details: "For OBC, EBC, and DNT students pursuing post-matriculation studies.",
+                    deadline: "September-October (Tentative)",
+                    image: "nsp.png",
+                    link: "https://scholarships.gov.in/",
+                    minGPA: null,
+                    incomeLimit: 250000,
+                    type: "need",
+                    minYear: 1,
+                    maxYear: 4,
+                    eligibleYears: ['1', '2', '3', '4']
+                },
+                {
+                    title: "Dr. Ambedkar Post Matric Scholarship for OBCs",
+                    amount: "Varies by state",
+                    details: "Financial support for OBC students pursuing higher education from Class 11 onwards.",
+                    deadline: "Varies by state",
+                    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
+                    link: "https://socialjustice.gov.in/schemes",
+                    minGPA: null,
+                    incomeLimit: 200000,
+                    type: "need",
+                    minYear: 1,
+                    maxYear: 4,
+                    eligibleYears: ['1', '2', '3', '4']
+                },
+                {
+                    title: "National Overseas Scholarship (NOS)",
+                    amount: "Varies by country",
+                    details: "For OBC students (and others) to pursue master's and Ph.D. degrees abroad.",
+                    deadline: "2025-10-24",
+                    image: "nos.png",
+                    link: "https://nosmsje.gov.in/",
+                    minGPA: 65,
+                    incomeLimit: 800000,
+                    type: "merit",
+                    minYear: 3,
+                    maxYear: 'pg',
+                    eligibleYears: ['3', '4', 'pg']
+                },
+                {
+                    title: "National Fellowship for OBC Students (NF-OBC)",
+                    amount: "₹31,000 to ₹35,000 per month",
+                    details: "A fellowship for OBC students pursuing M.Phil. and Ph.D. degrees in Indian universities.",
+                    deadline: "October-December (Tentative)",
+                    image: "nfobc.png",
+                    link: "https://nbcfdc.gov.in/",
+                    minGPA: 55,
+                    incomeLimit: null,
+                    type: "merit",
+                    minYear: 'pg',
+                    maxYear: 'pg',
+                    eligibleYears: ['pg']
+                }
             ],
+
             sc: [
                 {
                     title: "SC/ST Excellence Award",
@@ -2088,9 +1001,16 @@
                     details: "State government scholarship for SC students.",
                     deadline: "2025-01-10",
                     image: "https://images.unsplash.com/photo-1600195077909-46e573870d99?q=80&w=600&auto=format&fit=crop",
-                    link: "#"
+                    link: "#",
+                    minGPA: 50,
+                    incomeLimit: 250000,
+                    type: "merit",
+                    minYear: 1,
+                    maxYear: 4,
+                    eligibleYears: ['1', '2', '3', '4']
                 }
             ],
+
             st: [
                 {
                     title: "Tribal Development Scholarship",
@@ -2098,9 +1018,16 @@
                     details: "Tribal development fund for ST students.",
                     deadline: "2025-01-10",
                     image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=600&auto=format&fit=crop",
-                    link: "#"
+                    link: "#",
+                    minGPA: null,
+                    incomeLimit: 300000,
+                    type: "need",
+                    minYear: 1,
+                    maxYear: 4,
+                    eligibleYears: ['1', '2', '3', '4']
                 }
             ],
+
             ews: [
                 {
                     title: "EWS Support Grant",
@@ -2108,184 +1035,137 @@
                     details: "For economically weaker sections with valid certificate.",
                     deadline: "2025-01-15",
                     image: "https://images.unsplash.com/photo-1594642418391-7f9a8f460431?q=80&w=600&auto=format&fit=crop",
-                    link: "#"
+                    link: "#",
+                    minGPA: null,
+                    incomeLimit: 250000,
+                    type: "need",
+                    minYear: 1,
+                    maxYear: 4,
+                    eligibleYears: ['1', '2', '3', '4']
                 }
             ]
         };
-
-        let userProfile = {};
+        let userProfileData = {};
         let bookmarkedScholarships = [];
 
-        // --- Profile Form Submission ---
-        document.getElementById('profileForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            userProfile = {
-                caste: document.getElementById('caste').value,
-                gpa: parseFloat(document.getElementById('gpa').value)
-            };
-
-            document.getElementById('profileSection').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
-            
-            renderDashboard();
+        // --- 4. MAIN APP CONTROLLER ---
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                const userDocRef = db.collection('users').doc(user.uid);
+                userDocRef.get().then(doc => {
+                    if (doc.exists) {
+                        userProfileData = doc.data();
+                        if (userProfileData.caste) {
+                            showDashboard();
+                        } else {
+                            showProfileForm();
+                        }
+                    }
+                }).catch(error => console.error("Error fetching user profile:", error));
+            } else {
+                window.location.href = 'logins.html';
+            }
         });
 
+        // --- 5. VIEW CONTROL FUNCTIONS ---
+        function showProfileForm() {
+            profileSection.style.display = 'block';
+            dashboardSection.style.display = 'none';
+        }
+
+        function showDashboard() {
+            profileSection.style.display = 'none';
+            dashboardSection.style.display = 'block';
+            renderDashboard();
+        }
+
+        // --- 6. PROFILE FORM & LOGOUT LOGIC ---
+        profileForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (user) {
+                const userDocRef = db.collection('users').doc(user.uid);
+                const profileData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    gender: document.getElementById('gender').value,
+                    location: document.getElementById('location').value,
+                    income: document.getElementById('income').value,
+                    caste: document.getElementById('caste').value,
+                    gpa: parseFloat(document.getElementById('gpa').value),
+                    yearOfStudy: document.getElementById('yearOfStudy').value,
+                    achievements: document.getElementById('achievements').value
+                };
+                userDocRef.update(profileData).then(() => {
+                    alert("Profile Saved!");
+                    userProfileData = { ...userProfileData, ...profileData };
+                    showDashboard();
+                }).catch(error => {
+                    console.error("Error updating profile:", error);
+                    alert("Could not save profile. Please try again.");
+                });
+            }
+        });
+
+        // === NEW LOGOUT EVENT LISTENER ===
+        logoutButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            auth.signOut().then(() => {
+                alert('You have been logged out.');
+                window.location.href = 'logins.html';
+            }).catch(error => {
+                console.error("Logout Error:", error);
+            });
+        });
+
+        // --- 7. DASHBOARD & UI FUNCTIONS ---
+        // All your existing dashboard functions remain unchanged...
         function renderDashboard() {
             generateScholarshipRecommendations();
             updateBookmarksList();
             generateDeadlines();
             generateCalendar();
         }
-
-        // --- Scholarship Card Generation with Filtering Logic ---
         function generateScholarshipRecommendations() {
-            const scholarshipList = document.getElementById('scholarshipList');
-            
-            // --- Step 1: Caste-Based Selection ---
-            // Start with 'general' scholarships, available to everyone.
-            let recommendations = [...(scholarships.general || [])];
-            
-            // If the user selected a caste and it exists in our data, add those scholarships.
-            if (userProfile.caste && scholarships[userProfile.caste]) {
-                recommendations.push(...scholarships[userProfile.caste]);
-            }
-            
-            // --- Step 2: GPA-Based Filtering ---
-            // Filter the combined list based on the user's GPA.
+            let recommendations = [...(scholarships.general || [])]; if (userProfileData.caste && scholarships[userProfileData.caste]) { recommendations.push(...scholarships[userProfileData.caste]) }
             const filteredRecommendations = recommendations.filter(scholarship => {
-                // Ensure the scholarship entry is valid.
-                if (!scholarship.title) return false; 
-                
-                // Use a regular expression to find a GPA requirement like "GPA > 60%" in the details.
-                const gpaRequirementMatch = scholarship.details.match(/GPA > ([\d.]+)/);
-                
-                // If a GPA requirement is found...
-                if (gpaRequirementMatch) {
-                    // Extract the required GPA number.
-                    const requiredGpa = parseFloat(gpaRequirementMatch[1]);
-                    // Only keep the scholarship if the user's GPA meets or exceeds the requirement.
-                    return userProfile.gpa >= requiredGpa;
-                }
-                
-                // If no GPA requirement is mentioned, keep the scholarship.
-                return true;
-            });
-            
-            // --- Step 3: Display the Results ---
-            // If no scholarships remain after filtering, show a message.
-            if(filteredRecommendations.length === 0) {
-                scholarshipList.innerHTML = `<p style="color: #718096; text-align: center; grid-column: 1 / -1;">No scholarships match your profile currently. Please check back later!</p>`;
-                return;
-            }
-
-            // Generate and display the HTML for each filtered scholarship card.
+                if (!scholarship.title) return false; const gpaRequirementMatch = scholarship.details.match(/GPA > ([\d.]+)/); if (gpaRequirementMatch) { const requiredGpa = parseFloat(gpaRequirementMatch[1]); return userProfileData.gpa >= requiredGpa }
+                return true
+            }); if (filteredRecommendations.length === 0) { scholarshipList.innerHTML = `<p style="color: #718096; text-align: center; grid-column: 1 / -1;">No scholarships match your profile currently. Please check back later!</p>`; return }
             scholarshipList.innerHTML = filteredRecommendations.map(scholarship => {
-                const isBookmarked = bookmarkedScholarships.some(b => b.title === scholarship.title);
-                const deadlineDate = new Date(scholarship.deadline);
-                const deadlineString = !isNaN(deadlineDate) 
-                    ? deadlineDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-                    : scholarship.deadline; // Show text like "Varies" if date is invalid
-
-                return `
-                <div class="scholarship-card">
-                    <img src="${scholarship.image || 'https://via.placeholder.com/600x400'}" alt="${scholarship.title}" class="scholarship-image" onclick="openLink('${scholarship.link}')">
-                    <div class="scholarship-content">
-                        <div class="scholarship-title" onclick="openLink('${scholarship.link}')">${scholarship.title}</div>
-                        <div class="scholarship-details">${scholarship.details}</div>
-                        <div>
-                            <div class="scholarship-amount">${scholarship.amount}</div>
-                            <div class="scholarship-deadline">Deadline: ${deadlineString}</div>
-                        </div>
-                        <div class="scholarship-buttons">
-                            <button class="apply-btn" onclick="openLink('${scholarship.link}')">Apply Now</button>
-                            <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark(event, '${scholarship.title}')">
-                                ${isBookmarked ? '✅ Saved' : '📌 Save'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                `}).join('');
+                const isBookmarked = bookmarkedScholarships.some(b => b.title === scholarship.title); const deadlineDate = new Date(scholarship.deadline); const deadlineString = !isNaN(deadlineDate) ? deadlineDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : scholarship.deadline; return `
+            <div class="scholarship-card"><img src="${scholarship.image || 'https://via.placeholder.com/600x400'}" alt="${scholarship.title}" class="scholarship-image" onclick="openLink('${scholarship.link}')">
+            <div class="scholarship-content"><div class="scholarship-title" onclick="openLink('${scholarship.link}')">${scholarship.title}</div>
+            <div class="scholarship-details">${scholarship.details}</div>
+            <div><div class="scholarship-amount">${scholarship.amount}</div>
+            <div class="scholarship-deadline">Deadline: ${deadlineString}</div></div>
+            <div class="scholarship-buttons"><button class="apply-btn" onclick="openLink('${scholarship.link}')">Apply Now</button>
+            <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark(event, '${scholarship.title}')">${isBookmarked ? '✅ Saved' : '📌 Save'}</button>
+            </div></div></div>`}).join('')
         }
-        
-        function openLink(link) {
-            if (link && link !== '#') {
-                window.open(link, '_blank');
-            }
-        }
-
-        // --- Bookmarking Logic ---
+        function openLink(link) { if (link && link !== '#') window.open(link, '_blank') }
         function toggleBookmark(event, scholarshipTitle) {
-            event.stopPropagation();
-            const button = event.currentTarget;
-            const index = bookmarkedScholarships.findIndex(s => s.title === scholarshipTitle);
-
-            if (index > -1) {
-                bookmarkedScholarships.splice(index, 1);
-                button.classList.remove('bookmarked');
-                button.innerHTML = '📌 Save';
-            } else {
-                const allScholarships = [].concat(...Object.values(scholarships));
-                const scholarship = allScholarships.find(s => s.title === scholarshipTitle);
-                if(scholarship) {
-                    bookmarkedScholarships.push(scholarship);
-                    button.classList.add('bookmarked');
-                    button.innerHTML = '✅ Saved';
-                }
-            }
-            updateBookmarksList();
+            event.stopPropagation(); const button = event.currentTarget; const index = bookmarkedScholarships.findIndex(s => s.title === scholarshipTitle); if (index > -1) { bookmarkedScholarships.splice(index, 1); button.classList.remove('bookmarked'); button.innerHTML = '📌 Save' } else { const allScholarships = [].concat(...Object.values(scholarships)); const scholarship = allScholarships.find(s => s.title === scholarshipTitle); if (scholarship) { bookmarkedScholarships.push(scholarship); button.classList.add('bookmarked'); button.innerHTML = '✅ Saved' } }
+            updateBookmarksList()
         }
-
         function updateBookmarksList() {
-            const bookmarksList = document.getElementById('bookmarksList');
-            if (bookmarkedScholarships.length === 0) {
-                bookmarksList.innerHTML = '<p style="color: #718096; font-style: italic;">No bookmarks yet. Start saving scholarships!</p>';
-            } else {
-                bookmarksList.innerHTML = bookmarkedScholarships.map(scholarship => `
-                    <div style="background: rgba(255,255,255,0.7); padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 3px solid #667eea;">
-                        <div style="font-weight: 600; color: #2d3748;">${scholarship.title}</div>
-                    </div>
-                `).join('');
+            if (bookmarkedScholarships.length === 0) { bookmarksList.innerHTML = '<p style="color: #718096; font-style: italic;">No bookmarks yet.</p>' } else {
+                bookmarksList.innerHTML = bookmarkedScholarships.map(s => `
+        <div style="background: rgba(255,255,255,0.7); padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 3px solid #667eea;"><div style="font-weight: 600; color: #2d3748;">${s.title}</div></div>`).join('')
             }
         }
-
-        // --- Deadline & Calendar Generation ---
         function generateDeadlines() {
-            const deadlinesList = document.getElementById('deadlinesList');
-            const allScholarships = [].concat(...Object.values(scholarships)).filter(s => s.title && !isNaN(new Date(s.deadline)));
-            const upcomingDeadlines = allScholarships
-                .sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
-                .slice(0, 3);
-
-            deadlinesList.innerHTML = upcomingDeadlines.map(s => `
-                <div class="timeline-item">
-                    <div class="timeline-date">${new Date(s.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</div>
-                    <div>${s.title}</div>
-                </div>
-            `).join('');
+            const allScholarships = [].concat(...Object.values(scholarships)).filter(s => s.title && !isNaN(new Date(s.deadline))); const upcomingDeadlines = allScholarships.sort((a, b) => new Date(a.deadline) - new Date(b.deadline)).slice(0, 3); deadlinesList.innerHTML = upcomingDeadlines.map(s => `
+        <div class="timeline-item"><div class="timeline-date">${new Date(s.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</div>
+        <div>${s.title}</div></div>`).join('')
         }
-
         function generateCalendar() {
-            const calendarDays = document.getElementById('calendarDays');
-            const deadlineDates = [15, 20, 30]; // Sample December deadlines
-            
-            let calendarHTML = '';
-            for (let day = 1; day <= 31; day++) {
-                const hasDeadline = deadlineDates.includes(day);
-                calendarHTML += `<div class="calendar-day ${hasDeadline ? 'has-deadline' : ''}">${day}</div>`;
-            }
-            calendarDays.innerHTML = calendarHTML;
+            const deadlineDates = [15, 20, 30]; let calendarHTML = ''; for (let day = 1; day <= 31; day++) { const hasDeadline = deadlineDates.includes(day); calendarHTML += `<div class="calendar-day ${hasDeadline ? 'has-deadline' : ''}">${day}</div>` }
+            calendarDays.innerHTML = calendarHTML
         }
 
-        // --- Chatbot Functionality ---
-        const chatbotToggle = document.getElementById('chatbotToggle');
-        const chatbotWindow = document.getElementById('chatbotWindow');
-        const chatbotMessages = document.getElementById('chatbotMessages');
-        const chatbotInput = document.getElementById('chatbotInput');
-        const chatbotSend = document.getElementById('chatbotSend');
-
+        // --- 8. CHATBOT LOGIC ---
         chatbotToggle.addEventListener('click', () => chatbotWindow.classList.toggle('active'));
-
         function addMessage(message, isUser = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
@@ -2293,33 +1173,16 @@
             chatbotMessages.appendChild(messageDiv);
             chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
         }
-
-        function getBotResponse(userMessage) {
-            const message = userMessage.toLowerCase();
-            if (message.includes('scholarship') || message.includes('eligibility')) return "Based on your profile, I recommend checking the listed scholarships. For exact GPA and other criteria, click on a card to visit the official page.";
-            if (message.includes('deadline')) return "You can see the main deadlines on the dashboard. The SBI Asha Scholarship deadline is October 31st, 2025.";
-            if (message.includes('apply')) return "To apply, click the 'Apply Now' button on a scholarship card. This will take you to the official portal where you can find the application form and requirements.";
-            if (message.includes('thank')) return "You're welcome! Good luck with your applications! 🎓✨";
-            return "I can help with questions about eligibility, deadlines, or how to apply. What would you like to know?";
-        }
-
-        function sendMessage() {
-            const message = chatbotInput.value.trim();
-            if (message) {
-                addMessage(message, true);
-                chatbotInput.value = '';
-                setTimeout(() => addMessage(getBotResponse(message)), 1000);
-            }
-        }
-
+        function getBotResponse(userMessage) { const message = userMessage.toLowerCase(); if (message.includes('scholarship') || message.includes('eligibility')) return "Based on your profile, I recommend checking the listed scholarships. For exact GPA and other criteria, click on a card to visit the official page."; if (message.includes('deadline')) return "You can see the main deadlines on the dashboard. The SBI Asha Scholarship deadline is October 31st, 2025."; if (message.includes('apply')) return "To apply, click the 'Apply Now' button on a scholarship card. This will take you to the official portal where you can find the application form and requirements."; if (message.includes('thank')) return "You're welcome! Good luck with your applications! 🎓✨"; return "I can help with questions about eligibility, deadlines, or how to apply." }
+        function sendMessage() { const message = chatbotInput.value.trim(); if (message) { addMessage(message, true); chatbotInput.value = ''; setTimeout(() => addMessage(getBotResponse(message)), 1000) } }
         chatbotSend.addEventListener('click', sendMessage);
         chatbotInput.addEventListener('keypress', (e) => e.key === 'Enter' && sendMessage());
-
         document.addEventListener('click', (e) => {
-            if (!chatbotToggle.contains(e.target) && !chatbotWindow.contains(e.target) && !e.target.closest('.chatbot-window')) {
+            if (!chatbotContainer.contains(e.target) && chatbotWindow.classList.contains('active')) {
                 chatbotWindow.classList.remove('active');
             }
         });
- </script>
+    </script>
 </body>
+
 </html>
