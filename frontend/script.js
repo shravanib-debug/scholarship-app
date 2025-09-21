@@ -1,9 +1,6 @@
-// This is the correct code for your frontend file
-
 // --- FIREBASE INITIALIZATION ---
 console.log("script.js loaded successfully!");
 
-// Your other code (firebaseConfig, etc.) goes below...
 const firebaseConfig = {
     apiKey: "AIzaSyDoRHiwN9GjKxk8FCpeu7k3KUOggHzhGBw",
     authDomain: "scholarship-app-8ad28.firebaseapp.com",
@@ -17,7 +14,7 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// --- LOGIN & SIGN-UP PAGE LOGIC ---
+// --- LOGIN & SIGN-UP PAGE LOGIC (Your Original Code) ---
 const authForm = document.querySelector('#auth-form');
 const formTitle = document.querySelector('#form-title');
 const submitButton = document.querySelector('#submit-button');
@@ -31,12 +28,12 @@ const toggleMode = () => {
     if (isLoginMode) {
         formTitle.textContent = 'Welcome Back';
         submitButton.textContent = 'Log In';
-        toggleModeLink.textContent = 'Don\'t have an account? Sign Up';
+        toggleModeLink.innerHTML = 'Don\'t have an account? <strong>Sign Up</strong>';
         confirmPasswordGroup.style.display = 'none';
     } else {
         formTitle.textContent = 'Create an Account';
         submitButton.textContent = 'Sign Up';
-        toggleModeLink.textContent = 'Already have an account? Log In';
+        toggleModeLink.innerHTML = 'Already have an account? <strong>Log In</strong>';
         confirmPasswordGroup.style.display = 'block';
     }
 };
@@ -53,7 +50,10 @@ authForm.addEventListener('submit', (e) => {
 
     if (isLoginMode) {
         auth.signInWithEmailAndPassword(email, password)
-            .then(userCredential => alert('Welcome back!'))
+            .then(userCredential => {
+                alert('Welcome back!');
+                window.location.href = 'dashboard.html'; // Redirect on success
+            })
             .catch(error => alert(error.message));
     } else {
         const confirmPassword = authForm['confirm-password'].value;
@@ -61,10 +61,40 @@ authForm.addEventListener('submit', (e) => {
             return alert("Passwords do not match!");
         }
         auth.createUserWithEmailAndPassword(email, password)
-            .then(userCredential => alert('Account created!'))
+            .then(userCredential => {
+                alert('Account created!');
+                window.location.href = 'dashboard.html'; // Redirect on success
+            })
             .catch(error => alert(error.message));
     }
 });
-// Add this to the end of your script.js file
-// Add this to the end of your script.js file
+
+
+// --- ⭐️ ADDED THIS SECTION FOR GOOGLE SIGN-IN ⭐️ ---
+
+// 1. Get a reference to the Google button from your HTML
+const googleSignInButton = document.getElementById('google-signin-btn');
+
+// 2. Create an instance of the Google provider object
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+// 3. Add the click event listener to the button
+googleSignInButton.addEventListener('click', () => {
+  
+  // 4. Tell Firebase to open the sign-in pop-up
+  auth.signInWithPopup(googleProvider)
+    .then((result) => {
+      const user = result.user;
+      console.log("Google Sign-In Successful!", user);
+      alert(`Welcome, ${user.displayName}!`);
+      
+      // IMPORTANT: Change 'dashboard.html' to your main page
+      window.location.href = 'dashboard.html'; 
+
+    }).catch((error) => {
+      const errorMessage = error.message;
+      console.error("Google Sign-In Error:", errorMessage);
+      alert(`Error during sign-in: ${errorMessage}`);
+    });
+});
 
