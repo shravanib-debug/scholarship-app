@@ -933,7 +933,7 @@
             calendarDays.innerHTML = calendarHTML;
         }
 
-        // --- Chatbot Functionality ---
+        <!-- // --- Chatbot Functionality ---
         const chatbotToggle = document.getElementById('chatbotToggle');
         const chatbotWindow = document.getElementById('chatbotWindow');
         const chatbotMessages = document.getElementById('chatbotMessages');
@@ -975,7 +975,7 @@
             if (!chatbotToggle.contains(e.target) && !chatbotWindow.contains(e.target) && !e.target.closest('.chatbot-window')) {
                 chatbotWindow.classList.remove('active');
             }
-        });
+        }); -->
     </script>
 </body>
 </html> -->
@@ -1704,44 +1704,85 @@
         <button class="chatbot-button" id="chatbotToggle">🤖</button>
     </div>
 
-    <script>
+    <!-- <script>
         // --- Sample Scholarship Data ---
         const scholarships = {
             general: [
                 {
-                    title: "SBI Asha Scholarship 2025-26",
-                    amount: "Up to ₹20 Lakh",
-                    details: "For school and college students, including those pursuing studies abroad.",
-                    deadline: "2025-10-31",
-                    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop",
-                    link: "https://www.sbi.co.in/web/corporate-banking/sbi-foundation"
-                },
-                {
-                    title: "National Overseas Scholarship (NOS)",
-                    amount: "Varies",
-                    details: "For SC/ST students for masters & PhD abroad. GPA > 60%",
-                    deadline: "2025-03-31",
-                    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
-                    link: "https://nosmsje.gov.in/"
-                },
-                {
-                    title: "Innovation Leaders Grant",
-                    amount: "₹1,00,000",
-                    details: "For students with innovative projects in STEM fields.",
-                    deadline: "2025-01-20",
-                    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop",
-                    link: "#"
-                }
+            title: "SBI Asha Scholarship 2025-26",
+            amount: "Up to ₹20 Lakh",
+            details: "For school and college students, including those pursuing studies abroad.",
+            deadline: "2025-10-31",
+            image: "sbi.png",
+            link: "https://www.sbi.co.in/web/corporate-banking/sbi-foundation"
+        },
+        {
+            title: "National Overseas Scholarship (NOS)",
+            amount: "Varies",
+            details: "For SC/ST students for masters & PhD abroad. GPA > 60%",
+            deadline: "2025-03-31",
+            image: "nos1.jpeg",
+            link: "https://nosmsje.gov.in/"
+        },
+        {
+            title: "Indira Gandhi Scholarship for Single Girl Child",
+            amount: "6.25L",
+            details: "For single girl children pursuing postgraduate studies.",
+            deadline: "2025-03-31",
+            image: "nos.png",
+            link: "https://nosmsje.gov.in/"
+        },
+        {
+            title: "PM-USP Central Sector Scheme of Scholarship",
+            amount: "Varies",
+            details: "For meritorious students from low-income families to pursue higher education.",
+            deadline: "Varies",
+            image: "nsp.png",
+            link: "https://scholarships.gov.in/"
+        },
+        {
+            title: "AICTE Saksham Scholarship Scheme",
+            amount: "₹50,000 per annum",
+            details: "For specially-abled students pursuing a technical diploma or degree.",
+            deadline: "Varies",
+            image: "aicte.jpeg",
+            link: "https://www.aicte-india.org/"
+        }
+                   
             ],
             obc: [
-                {
-                    title: "Post-Matric Scholarship for OBC",
-                    amount: "Varies",
-                    details: "Government scholarship for OBC students in higher education.",
-                    deadline: "2025-01-31",
-                    image: "https://images.unsplash.com/photo-1607013407627-6ee814329547?q=80&w=600&auto=format&fit=crop",
-                    link: "https://scholarships.gov.in/"
-                }
+                  {
+            title: "PM-YASASVI Post-Matric Scholarship",
+            amount: "Up to ₹20,000 annually",
+            details: "For OBC, EBC, and DNT students pursuing post-matriculation studies.",
+            deadline: "September-October (Tentative)",
+            image: "nsp.png",
+            link: "https://scholarships.gov.in/"
+        },
+        {
+            title: "Dr. Ambedkar Post Matric Scholarship for OBCs",
+            amount: "Varies by state",
+            details: "Financial support for OBC students pursuing higher education from Class 11 onwards.",
+            deadline: "Varies by state",
+            image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
+            link: "https://socialjustice.gov.in/schemes"
+        },
+        {
+            title: "National Overseas Scholarship (NOS)",
+            amount: "Varies by country",
+            details: "For OBC students (and others) to pursue master's and Ph.D. degrees abroad.",
+            deadline: "2025-10-24",
+            image: "nos.png",
+            link: "https://nosmsje.gov.in/"
+        },
+        {
+            title: "National Fellowship for OBC Students (NF-OBC)",
+            amount: "₹31,000 to ₹35,000 per month",
+            details: "A fellowship for OBC students pursuing M.Phil. and Ph.D. degrees in Indian universities.",
+            deadline: "October-December (Tentative)",
+            image: "nfobc.png",
+            link: "https://nbcfdc.gov.in/"
+        }
             ],
             sc: [
                 {
@@ -1959,6 +2000,326 @@
                 chatbotWindow.classList.remove('active');
             }
         });
-    </script>
+    </script> -->
+    <script>
+        // --- Sample Scholarship Data ---
+        const scholarships = {
+            general: [
+                {
+            title: "SBI Asha Scholarship 2025-26",
+            amount: "Up to ₹20 Lakh",
+            details: "For school and college students, including those pursuing studies abroad.",
+            deadline: "2025-10-31",
+            image: "sbi.png",
+            link: "https://www.sbi.co.in/web/corporate-banking/sbi-foundation"
+        },
+        {
+            title: "National Overseas Scholarship (NOS)",
+            amount: "Varies",
+            details: "For SC/ST students for masters & PhD abroad. GPA > 60%",
+            deadline: "2025-03-31",
+            image: "nos1.jpeg",
+            link: "https://nosmsje.gov.in/"
+        },
+        {
+            title: "Indira Gandhi Scholarship for Single Girl Child",
+            amount: "6.25L",
+            details: "For single girl children pursuing postgraduate studies.",
+            deadline: "2025-03-31",
+            image: "nos.png",
+            link: "https://nosmsje.gov.in/"
+        },
+        {
+            title: "PM-USP Central Sector Scheme of Scholarship",
+            amount: "Varies",
+            details: "For meritorious students from low-income families to pursue higher education.",
+            deadline: "Varies",
+            image: "nsp.png",
+            link: "https://scholarships.gov.in/"
+        },
+        {
+            title: "AICTE Saksham Scholarship Scheme",
+            amount: "₹50,000 per annum",
+            details: "For specially-abled students pursuing a technical diploma or degree.",
+            deadline: "Varies",
+            image: "aicte.jpeg",
+            link: "https://www.aicte-india.org/"
+        }
+
+            ],
+            obc: [
+                  {
+            title: "PM-YASASVI Post-Matric Scholarship",
+            amount: "Up to ₹20,000 annually",
+            details: "For OBC, EBC, and DNT students pursuing post-matriculation studies.",
+            deadline: "September-October (Tentative)",
+            image: "nsp.png",
+            link: "https://scholarships.gov.in/"
+        },
+        {
+            title: "Dr. Ambedkar Post Matric Scholarship for OBCs",
+            amount: "Varies by state",
+            details: "Financial support for OBC students pursuing higher education from Class 11 onwards.",
+            deadline: "Varies by state",
+            image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop",
+            link: "https://socialjustice.gov.in/schemes"
+        },
+        {
+            title: "National Overseas Scholarship (NOS)",
+            amount: "Varies by country",
+            details: "For OBC students (and others) to pursue master's and Ph.D. degrees abroad.",
+            deadline: "2025-10-24",
+            image: "nos.png",
+            link: "https://nosmsje.gov.in/"
+        },
+        {
+            title: "National Fellowship for OBC Students (NF-OBC)",
+            amount: "₹31,000 to ₹35,000 per month",
+            details: "A fellowship for OBC students pursuing M.Phil. and Ph.D. degrees in Indian universities.",
+            deadline: "October-December (Tentative)",
+            image: "nfobc.png",
+            link: "https://nbcfdc.gov.in/"
+        }
+            ],
+            sc: [
+                {
+                    title: "SC/ST Excellence Award",
+                    amount: "₹60,000",
+                    details: "State government scholarship for SC students.",
+                    deadline: "2025-01-10",
+                    image: "https://images.unsplash.com/photo-1600195077909-46e573870d99?q=80&w=600&auto=format&fit=crop",
+                    link: "#"
+                }
+            ],
+            st: [
+                {
+                    title: "Tribal Development Scholarship",
+                    amount: "₹60,000",
+                    details: "Tribal development fund for ST students.",
+                    deadline: "2025-01-10",
+                    image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=600&auto=format&fit=crop",
+                    link: "#"
+                }
+            ],
+            ews: [
+                {
+                    title: "EWS Support Grant",
+                    amount: "₹45,000",
+                    details: "For economically weaker sections with valid certificate.",
+                    deadline: "2025-01-15",
+                    image: "https://images.unsplash.com/photo-1594642418391-7f9a8f460431?q=80&w=600&auto=format&fit=crop",
+                    link: "#"
+                }
+            ]
+        };
+
+        let userProfile = {};
+        let bookmarkedScholarships = [];
+
+        // --- Profile Form Submission ---
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            userProfile = {
+                caste: document.getElementById('caste').value,
+                gpa: parseFloat(document.getElementById('gpa').value)
+            };
+
+            document.getElementById('profileSection').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            
+            renderDashboard();
+        });
+
+        function renderDashboard() {
+            generateScholarshipRecommendations();
+            updateBookmarksList();
+            generateDeadlines();
+            generateCalendar();
+        }
+
+        // --- Scholarship Card Generation with Filtering Logic ---
+        function generateScholarshipRecommendations() {
+            const scholarshipList = document.getElementById('scholarshipList');
+            
+            // --- Step 1: Caste-Based Selection ---
+            // Start with 'general' scholarships, available to everyone.
+            let recommendations = [...(scholarships.general || [])];
+            
+            // If the user selected a caste and it exists in our data, add those scholarships.
+            if (userProfile.caste && scholarships[userProfile.caste]) {
+                recommendations.push(...scholarships[userProfile.caste]);
+            }
+            
+            // --- Step 2: GPA-Based Filtering ---
+            // Filter the combined list based on the user's GPA.
+            const filteredRecommendations = recommendations.filter(scholarship => {
+                // Ensure the scholarship entry is valid.
+                if (!scholarship.title) return false; 
+                
+                // Use a regular expression to find a GPA requirement like "GPA > 60%" in the details.
+                const gpaRequirementMatch = scholarship.details.match(/GPA > ([\d.]+)/);
+                
+                // If a GPA requirement is found...
+                if (gpaRequirementMatch) {
+                    // Extract the required GPA number.
+                    const requiredGpa = parseFloat(gpaRequirementMatch[1]);
+                    // Only keep the scholarship if the user's GPA meets or exceeds the requirement.
+                    return userProfile.gpa >= requiredGpa;
+                }
+                
+                // If no GPA requirement is mentioned, keep the scholarship.
+                return true;
+            });
+            
+            // --- Step 3: Display the Results ---
+            // If no scholarships remain after filtering, show a message.
+            if(filteredRecommendations.length === 0) {
+                scholarshipList.innerHTML = `<p style="color: #718096; text-align: center; grid-column: 1 / -1;">No scholarships match your profile currently. Please check back later!</p>`;
+                return;
+            }
+
+            // Generate and display the HTML for each filtered scholarship card.
+            scholarshipList.innerHTML = filteredRecommendations.map(scholarship => {
+                const isBookmarked = bookmarkedScholarships.some(b => b.title === scholarship.title);
+                const deadlineDate = new Date(scholarship.deadline);
+                const deadlineString = !isNaN(deadlineDate) 
+                    ? deadlineDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                    : scholarship.deadline; // Show text like "Varies" if date is invalid
+
+                return `
+                <div class="scholarship-card">
+                    <img src="${scholarship.image || 'https://via.placeholder.com/600x400'}" alt="${scholarship.title}" class="scholarship-image" onclick="openLink('${scholarship.link}')">
+                    <div class="scholarship-content">
+                        <div class="scholarship-title" onclick="openLink('${scholarship.link}')">${scholarship.title}</div>
+                        <div class="scholarship-details">${scholarship.details}</div>
+                        <div>
+                            <div class="scholarship-amount">${scholarship.amount}</div>
+                            <div class="scholarship-deadline">Deadline: ${deadlineString}</div>
+                        </div>
+                        <div class="scholarship-buttons">
+                            <button class="apply-btn" onclick="openLink('${scholarship.link}')">Apply Now</button>
+                            <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark(event, '${scholarship.title}')">
+                                ${isBookmarked ? '✅ Saved' : '📌 Save'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `}).join('');
+        }
+        
+        function openLink(link) {
+            if (link && link !== '#') {
+                window.open(link, '_blank');
+            }
+        }
+
+        // --- Bookmarking Logic ---
+        function toggleBookmark(event, scholarshipTitle) {
+            event.stopPropagation();
+            const button = event.currentTarget;
+            const index = bookmarkedScholarships.findIndex(s => s.title === scholarshipTitle);
+
+            if (index > -1) {
+                bookmarkedScholarships.splice(index, 1);
+                button.classList.remove('bookmarked');
+                button.innerHTML = '📌 Save';
+            } else {
+                const allScholarships = [].concat(...Object.values(scholarships));
+                const scholarship = allScholarships.find(s => s.title === scholarshipTitle);
+                if(scholarship) {
+                    bookmarkedScholarships.push(scholarship);
+                    button.classList.add('bookmarked');
+                    button.innerHTML = '✅ Saved';
+                }
+            }
+            updateBookmarksList();
+        }
+
+        function updateBookmarksList() {
+            const bookmarksList = document.getElementById('bookmarksList');
+            if (bookmarkedScholarships.length === 0) {
+                bookmarksList.innerHTML = '<p style="color: #718096; font-style: italic;">No bookmarks yet. Start saving scholarships!</p>';
+            } else {
+                bookmarksList.innerHTML = bookmarkedScholarships.map(scholarship => `
+                    <div style="background: rgba(255,255,255,0.7); padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 3px solid #667eea;">
+                        <div style="font-weight: 600; color: #2d3748;">${scholarship.title}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // --- Deadline & Calendar Generation ---
+        function generateDeadlines() {
+            const deadlinesList = document.getElementById('deadlinesList');
+            const allScholarships = [].concat(...Object.values(scholarships)).filter(s => s.title && !isNaN(new Date(s.deadline)));
+            const upcomingDeadlines = allScholarships
+                .sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
+                .slice(0, 3);
+
+            deadlinesList.innerHTML = upcomingDeadlines.map(s => `
+                <div class="timeline-item">
+                    <div class="timeline-date">${new Date(s.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</div>
+                    <div>${s.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function generateCalendar() {
+            const calendarDays = document.getElementById('calendarDays');
+            const deadlineDates = [15, 20, 30]; // Sample December deadlines
+            
+            let calendarHTML = '';
+            for (let day = 1; day <= 31; day++) {
+                const hasDeadline = deadlineDates.includes(day);
+                calendarHTML += `<div class="calendar-day ${hasDeadline ? 'has-deadline' : ''}">${day}</div>`;
+            }
+            calendarDays.innerHTML = calendarHTML;
+        }
+
+        // --- Chatbot Functionality ---
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotSend = document.getElementById('chatbotSend');
+
+        chatbotToggle.addEventListener('click', () => chatbotWindow.classList.toggle('active'));
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            messageDiv.textContent = message;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function getBotResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            if (message.includes('scholarship') || message.includes('eligibility')) return "Based on your profile, I recommend checking the listed scholarships. For exact GPA and other criteria, click on a card to visit the official page.";
+            if (message.includes('deadline')) return "You can see the main deadlines on the dashboard. The SBI Asha Scholarship deadline is October 31st, 2025.";
+            if (message.includes('apply')) return "To apply, click the 'Apply Now' button on a scholarship card. This will take you to the official portal where you can find the application form and requirements.";
+            if (message.includes('thank')) return "You're welcome! Good luck with your applications! 🎓✨";
+            return "I can help with questions about eligibility, deadlines, or how to apply. What would you like to know?";
+        }
+
+        function sendMessage() {
+            const message = chatbotInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatbotInput.value = '';
+                setTimeout(() => addMessage(getBotResponse(message)), 1000);
+            }
+        }
+
+        chatbotSend.addEventListener('click', sendMessage);
+        chatbotInput.addEventListener('keypress', (e) => e.key === 'Enter' && sendMessage());
+
+        document.addEventListener('click', (e) => {
+            if (!chatbotToggle.contains(e.target) && !chatbotWindow.contains(e.target) && !e.target.closest('.chatbot-window')) {
+                chatbotWindow.classList.remove('active');
+            }
+        });
+ </script>
 </body>
 </html>

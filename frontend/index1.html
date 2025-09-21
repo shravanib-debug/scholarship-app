@@ -6,9 +6,6 @@
     <title>EduPath - Scholarship Finder</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Replace your existing login button with this -->
-
-
     <style>
         * {
             margin: 0;
@@ -194,6 +191,29 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+            display: flex; /* Added for Flexbox layout */
+            flex-direction: column; /* Changed to column for mobile first */
+            align-items: center; /* Center items vertically */
+            gap: 2rem; /* Add spacing between text and image */
+        }
+        
+        .hero-content { /* New class to wrap text and buttons */
+            text-align: center; /* Align text content */
+            flex: 1; /* Allow content to grow */
+        }
+
+        .hero-image-container { /* New class to contain the image */
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image { /* New class for the image */
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
 
         .hero h1 {
@@ -557,6 +577,19 @@
         }
 
         /* Responsive Design */
+        @media (min-width: 769px) {
+            .hero-container {
+                flex-direction: row; /* Change to row for desktop view */
+                text-align: left;
+            }
+            .hero-content {
+                text-align: left;
+            }
+            .hero-cta {
+                justify-content: flex-start; /* Align buttons to the left */
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-menu {
                 position: fixed;
@@ -635,12 +668,10 @@
         .page {
             min-height: 100vh;   /* makes sure every page section is scrollable */
         }
-
     </style>
 </head>
 <body class="pattern-bg">
     <div class="content">
-        <!-- Navigation -->
         <nav class="navbar">
             <div class="nav-container">
                 <a href="#" class="logo" onclick="showPage('home')">
@@ -695,24 +726,25 @@
             </div>
         </nav>
 
-        <!-- Home Page -->
         <div id="home" class="page active">
             <section class="hero">
                 <div class="hero-container">
-                    <h1 class="fade-in">Find Your Perfect Scholarship</h1>
-                    <p class="fade-in">Discover thousands of scholarships tailored to your profile. Get personalized recommendations and never miss a deadline again.</p>
-                    <div class="hero-cta fade-in">
-                        
-                        <button class="btn btn-primary" onclick="window.location.href='index.html'">
-                        Get Started
-                        </button>
-                        <button class="btn btn-secondary" onclick="showPage('dashboard')">
-                            <i class="fas fa-search"></i> Browse Scholarships
-                        </button>
+                    <div class="hero-content"> <h1 class="fade-in">Find Your Perfect Scholarship</h1>
+                        <p class="fade-in">Discover thousands of scholarships tailored to your profile. Get personalized recommendations and never miss a deadline again.</p>
+                        <div class="hero-cta fade-in">
+                            <button class="btn btn-primary" onclick="window.location.href='index.html'">
+                                Get Started
+                            </button>
+                            <button class="btn btn-secondary" onclick="showPage('dashboard')">
+                                <i class="fas fa-search"></i> Browse Scholarships
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-image-container fade-in"> <img src="Mortgages 101.png" alt="Image showing scholarship search" class="hero-image">
                     </div>
                 </div>
             </section>
-
+            
             <div class="main-content">
                 <div class="dashboard-grid">
                     <div class="dashboard-card fade-in">
@@ -746,8 +778,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Profile Creation Page -->
+        
         <div id="profile" class="page">
             <div class="main-content">
                 <div class="profile-form fade-in">
@@ -835,14 +866,13 @@
                             <i class="fas fa-save"></i> Create Profile & Find Scholarships
                         </button>
                         <button class="btn btn-primary" onclick="window.location.href='index.html'">
-        Get started
-        </button>
+                            Get started
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
 
-        <!-- Dashboard Page -->
         <div id="dashboard" class="page">
             <div class="main-content">
                 <h2 style="margin-bottom: 2rem; color: var(--text-dark);">
@@ -892,4 +922,15 @@
                                 <span>Applications</span>
                                 <span style="font-weight: bold;">5</span>
                             </div>
-                            <div style="display: flex; justify-content:
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Accepted</span>
+                                <span style="font-weight: bold;">2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
